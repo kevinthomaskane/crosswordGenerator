@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="crossword-wrapper" v-for="(letterCombo, i) of LETTERCOMBOS.slice(0, 1)" :key="i">
+    <div class="crossword-wrapper" v-for="(letterCombo, i) of LETTERCOMBOS.slice(0, 9)" :key="i">
       <crossword
         :letterCombo="letterCombo"
       />
@@ -27,7 +27,6 @@ export default {
   mounted () {
     // fill the grid with 20 arrays (rows) each with 20 indexes (columns)
     this.grid = new Array(20).fill(new Array(20).fill(0))
-    this.fillGrid()
   },
   methods: {
     fillGrid () {

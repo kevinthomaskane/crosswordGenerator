@@ -6,17 +6,6 @@
 <script>
 /* eslint-disable */
 
-/**
- * @desc constructs an html string to be appended to results container for each result
- * @param {string} root - the actual word
- * @param {string} pos - part of speech
- * @param {string} definition - the definition
- * @param {array} synonyms - synonyms of result
- * @param {array} antonyms - antonyms of result
- * @param {number} num - the index of the result within results array, used for creating numerical list. global namespace css issues occur when relying on default ol styling.
- * @return {string} - html string of result
- */
-
 export default {
   name: 'Crossword',
   props: {
@@ -61,10 +50,11 @@ export default {
       const coordinates = []
       // we'll start at row 9, column 0 which will correspond with i
       for (let i = 0; i < letters.length; i++) {
-        this.grid[9][i] = {
-          letter: letters[i],
-          partOfWord: word
-        }
+        /* this.grid[9][i] = { */
+        /* letter: letters[i], */
+        /* partOfWord: word */
+        /* } */
+        this.grid[9][i] = letters[i]
         coordinates.push([9, i])
       }
 
@@ -92,6 +82,7 @@ export default {
           const placedWord = this.placedWords[j]
 
           // loop through placedWord letters to see if there are any letter matches with current word
+          nextPlacedLetter:
           for (let k = 0; k < placedWord.letters.length; k++) {
             
             // if true, indicates that the placedWord and WORD share a common letter
@@ -103,27 +94,110 @@ export default {
               const fitsGrid = this.fitsGrid(placedWord, placedLetterCoordinates, MATCHED_LETTER_INDEX, LETTERS.length)
 
               if (fitsGrid) {
-
                 // keep track of where the new letters should be placed in the grid
-                const unplacedLetterCoordinates = []
+                const LETTER_COORDINATES = []
 
                 if (placedWord.layout === 'horizontal') {
+                  // loop through letters and give them a coordinate based on where the match exists
+                  for (let i = 0; i < LETTERS.length; i++) {
+                    const ROW = placedLetterCoordinates[0] - (MATCHED_LETTER_INDEX - i)
+                    const COL = placedLetterCoordinates[1]
+                    LETTER_COORDINATES.push([ROW, COL])
+                  }
+
+                  // check to see whether the unplaced letter coordinates are surrounded by 0's 
+                  for (let i = 0; i < LETTER_COORDINATES.length; i++) {
+                    const ROW = LETTER_COORDINATES[i][0]
+                    const COL = LETTER_COORDINATES[i][1]
+
+                    // check if we are at the matching letter and make sure we aren't overwriting a currently placed word
+                    if (JSON.stringify(placedLetterCoordinates) === JSON.stringify(LETTER_COORDINATES[i]) &&
+                        (this.grid[ROW + 1][COL] === 0 || this.grid[ROW + 1][COL] === undefined) &&
+                        (this.grid[ROW - 1][COL] === 0 || this.grid[ROW - 1][COL] === undefined)) {
+                      continue
+                    }
+
+                    // indicates we are in the last column without an adjacent letter
+                    if (this.grid[ROW][COL + 1] === undefined && this.grid[ROW][COL - 1] === 0) {
+                      continue
+                    }
+
+                    // indicates we are in the first column without an adjacent letter
+                    if (this.grid[ROW][COL - 1] === undefined && this.grid[ROW][COL + 1] === 0) {
+                      continue
+                    }
+
+                    // if any of these eval to false, we know that the spot is either filled or adjacent to another letter
+                    if (this.grid[ROW][COL] !== 0 ||
+                        this.grid[ROW][COL + 1] !== 0  ||
+                        this.grid[ROW][COL - 1] !== 0) {
+
+                      // this word doesn't fit at the current letter, so go to the next letter in the placed word
+                      continue nextPlacedLetter
+                    }
+                  }
+
+                  // if we make it this far, then we know that the LETTERS have valid coordinates and are ready to be placed on grid
+                  this.addToGridAndPlacedWords(LETTER_COORDINATES, LETTERS, WORD, placedWord)
+
+                  // WORD has been placed, move on to the next word
+                  continue outer
+
+                  // handle words that need to be placed horizontally
+                } else {
 
                   // loop through letters and give them a coordinate based on where the match exists
                   for (let i = 0; i < LETTERS.length; i++) {
-                    const row = placedLetterCoordinates[0] - (MATCHED_LETTER_INDEX - i)
-                    const col = placedLetterCoordinates[1]
-                    unplacedLetterCoordinates.push([row, col])
+                    const ROW = placedLetterCoordinates[0]
+                    const COL = placedLetterCoordinates[1] - (MATCHED_LETTER_INDEX - i)
+                    LETTER_COORDINATES.push([ROW, COL])
                   }
 
-                  // check to see whether the unplaced letter coordinates are surrounded by 0's on left and right
+                  // check to see whether the unplaced letter coordinates are surrounded by 0's
+                  for (let i = 0; i < LETTER_COORDINATES.length; i++) {
+                    const ROW = LETTER_COORDINATES[i][0]
+                    const COL = LETTER_COORDINATES[i][1]
 
+                    // check if we are at the matching letter and make sure we aren't overwriting a currently placed word
+                    if (JSON.stringify(placedLetterCoordinates) === JSON.stringify(LETTER_COORDINATES[i]) &&
+                        (this.grid[ROW][COL + 1] === 0 || this.grid[ROW][COL + 1] === undefined) &&
+                        (this.grid[ROW][COL - 1] === 0 || this.grid[ROW][COL - 1] === undefined)) {
+                      continue
+                    }
+
+                    // indicates we are in the last row without a letter above
+                    if (this.grid[ROW + 1][COL] === undefined && this.grid[ROW - 1][COL] === 0) {
+                      continue
+                    }
+
+                    // indicates we are in the first row without a letter below
+                    if (this.grid[ROW - 1][COL] === undefined && this.grid[ROW + 1][COL] === 0) {
+                      continue
+                    }
+
+                    // if any of these eval to false, we know that the spot is either filled or adjacent to another letter
+                    if (this.grid[ROW][COL] !== 0 ||
+                        this.grid[ROW + 1][COL] !== 0 ||
+                        this.grid[ROW - 1][COL] !== 0 ||
+                        this.grid[ROW][COL + 1] !== 0) {
+                      // this word doesn't fit at the current letter, so go to the next letter in the placed word
+                      continue nextPlacedLetter
+                    }
+                  }
+
+                  // if we make it this far, then we know that the LETTERS have valid coordinates and are ready to be placed on grid
+                  this.addToGridAndPlacedWords(LETTER_COORDINATES, LETTERS, WORD, placedWord)
+
+                  // WORD has been placed, move on to the next word
+                  continue outer
                 }
               }
             }
           }
         }
       }
+      console.table(this.grid)
+      console.log(this.placedWords.length)
     },
 
     /**
@@ -150,6 +224,36 @@ export default {
         return true
       }
       return false
+    },
+
+    /**
+     * @desc adds the letters to the grid and adds them to the placed words array
+     * @param {array} LETTER_COORDINATES - letter coordinates for unplaced word
+     * @param {array} LETTERS - letters of the unplaced word
+     * @param {string} WORD - the unplaced word
+     * @param {object} placedWord - the word that has been placed and contains a letter match
+     */
+    addToGridAndPlacedWords (LETTER_COORDINATES, LETTERS, WORD, placedWord) {
+      for (let i = 0; i < LETTER_COORDINATES.length; i++) {
+        const ROW = LETTER_COORDINATES[i][0]
+        const COL = LETTER_COORDINATES[i][1]
+
+        // place these new letters onto the grid
+        /* this.grid[ROW][COL] = {
+         *   letter: LETTERS[i],
+         *   partOfWord: WORD
+         * }
+         */
+        this.grid[ROW][COL] = LETTERS[i]
+      }
+
+      // add to placed words array
+      this.placedWords.push({
+        letters: LETTERS,
+        word: WORD,
+        coordinates: LETTER_COORDINATES,
+        layout: placedWord.layout === 'vertical' ? 'horizontal' : 'vertical'
+      })
     }
   }
 

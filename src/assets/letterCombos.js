@@ -13,7 +13,10 @@ export const letterCombos = [
       'gan',
       'gen',
       'eng',
-    ]
+    ],
+    placedWords: 9,
+    columnsUsed: 6,
+    rowsUsed: 8 
   },
   {
     letters: 'oapbdt',
@@ -39,7 +42,10 @@ export const letterCombos = [
       'oat',
       'bot',
       'tao',
-    ]
+    ],
+    placedWords: 13,
+    columnsUsed: 9,
+    rowsUsed: 12 
   },
   {
     letters: 'oexphn',
@@ -53,16 +59,30 @@ export const letterCombos = [
       'hop',
       'hon',
       'hen',
-      'hoe',
-    ]
+    ],
+    placedWords: 6,
+    columnsUsed: 7,
+    rowsUsed: 7 
   },
-  { letters: 'eeqwrl', words: ['were', 'reel', 'lee', 'wee', 'eel', 'ere'] },
-  { letters: 'uubrvn', words: ['burn', 'run', 'rub', 'bun', 'urn', 'bur'] },
+  { letters: 'eeqwrl',
+    words: ['were', 'reel', 'lee', 'wee', 'eel'],
+    placedWords: 4,
+    columnsUsed: 6,
+    rowsUsed: 4 
+  },
+  { letters: 'uubrvn',
+    words: ['burn', 'run', 'rub', 'bun', 'urn', 'bur'],
+    placedWords: 4,
+    columnsUsed: 6,
+    rowsUsed: 4 
+  },
   {
     letters: 'iotbkh',
-    words: ['both', 'bit', 'hit', 'hot', 'kit', 'bio', 'bot', 'tho']
+    words: ['both', 'bit', 'hit', 'hot', 'kit', 'bio', 'bot'],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 5 
   },
-  { letters: 'eitjtb', words: ['bite', 'bit', 'tie', 'bet', 'jet', 'tit'] },
   {
     letters: 'iartpl',
     words: [
@@ -95,10 +115,18 @@ export const letterCombos = [
       'til',
       'rai',
       'lat',
-    ]
+    ],
+    placedWords: 26,
+    columnsUsed: 13,
+    rowsUsed: 17 
   },
-  { letters: 'eeqfpl', words: ['feel', 'peel', 'flee', 'lee', 'fee', 'eel'] },
-  { letters: 'uijbsy', words: ['busy', 'buys', 'buy', 'bus', 'sub', 'bis'] },
+  { letters: 'eeqfpl',
+    words: ['feel', 'peel', 'flee', 'lee', 'fee', 'eel'],
+    placedWords: 5,
+    columnsUsed: 6,
+    rowsUsed: 4
+  },
+  { letters: 'uijbsy', words: ['busy', 'buys', 'buy', 'bus', 'sub'] },
   {
     letters: 'eehrtp',
     words: [
