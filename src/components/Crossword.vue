@@ -97,6 +97,7 @@ export default {
                 // keep track of where the new letters should be placed in the grid
                 const LETTER_COORDINATES = []
 
+                // indicates that we will be placing WORD vertically
                 if (placedWord.layout === 'horizontal') {
                   // loop through letters and give them a coordinate based on where the match exists
                   for (let i = 0; i < LETTERS.length; i++) {
@@ -112,8 +113,8 @@ export default {
 
                     // check if we are at the matching letter and make sure we aren't overwriting a currently placed word
                     if (JSON.stringify(placedLetterCoordinates) === JSON.stringify(LETTER_COORDINATES[i]) &&
-                        (this.grid[ROW + 1][COL] === 0 || this.grid[ROW + 1][COL] === undefined) &&
-                        (this.grid[ROW - 1][COL] === 0 || this.grid[ROW - 1][COL] === undefined)) {
+                        (this.grid[ROW + 1] === undefined || this.grid[ROW + 1][COL] === 0) &&
+                        (this.grid[ROW - 1] === undefined || this.grid[ROW - 1][COL] === 0)) {
                       continue
                     }
 
@@ -166,12 +167,12 @@ export default {
                     }
 
                     // indicates we are in the last row without a letter above
-                    if (this.grid[ROW + 1][COL] === undefined && this.grid[ROW - 1][COL] === 0) {
+                    if (this.grid[ROW + 1] === undefined && this.grid[ROW - 1][COL] === 0) {
                       continue
                     }
 
                     // indicates we are in the first row without a letter below
-                    if (this.grid[ROW - 1][COL] === undefined && this.grid[ROW + 1][COL] === 0) {
+                    if (this.grid[ROW - 1] === undefined && this.grid[ROW + 1][COL] === 0) {
                       continue
                     }
 

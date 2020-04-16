@@ -7,16 +7,12 @@ export const letterCombos = [
       'and',
       'end',
       'age',
-      'dan',
       'den',
-      'axe',
-      'gan',
-      'gen',
-      'eng',
+      'axe'
     ],
-    placedWords: 9,
+    placedWords: 7,
     columnsUsed: 6,
-    rowsUsed: 8 
+    rowsUsed: 7 
   },
   {
     letters: 'oapbdt',
@@ -40,8 +36,7 @@ export const letterCombos = [
       'dab',
       'ado',
       'oat',
-      'bot',
-      'tao',
+      'bot'
     ],
     placedWords: 13,
     columnsUsed: 9,
@@ -57,8 +52,7 @@ export const letterCombos = [
       'one',
       'pen',
       'hop',
-      'hon',
-      'hen',
+      'hen'
     ],
     placedWords: 6,
     columnsUsed: 7,
@@ -71,7 +65,7 @@ export const letterCombos = [
     rowsUsed: 4 
   },
   { letters: 'uubrvn',
-    words: ['burn', 'run', 'rub', 'bun', 'urn', 'bur'],
+    words: ['burn', 'run', 'rub', 'bun', 'urn'],
     placedWords: 4,
     columnsUsed: 6,
     rowsUsed: 4 
@@ -111,47 +105,50 @@ export const letterCombos = [
       'rap',
       'rip',
       'tar',
-      'alt',
-      'til',
-      'rai',
-      'lat',
+      'alt'
     ],
-    placedWords: 26,
+    placedWords: 24,
     columnsUsed: 13,
-    rowsUsed: 17 
+    rowsUsed: 15 
   },
   { letters: 'eeqfpl',
-    words: ['feel', 'peel', 'flee', 'lee', 'fee', 'eel'],
+    words: ['feel', 'peel', 'flee', 'fee', 'eel'],
     placedWords: 5,
     columnsUsed: 6,
     rowsUsed: 4
   },
-  { letters: 'uijbsy', words: ['busy', 'buys', 'buy', 'bus', 'sub'] },
+  { letters: 'uijbsy',
+    words: ['busy', 'buys', 'buy', 'bus', 'sub'],
+    placedWords: 5,
+    columnsUsed: 6,
+    rowsUsed: 6
+  },
   {
     letters: 'eehrtp',
     words: [
       'there',
       'three',
-      'peter',
       'ether',
       'here',
       'tree',
       'peer',
       'thee',
-      'pere',
       'the',
       'her',
       'per',
       'pet',
-      'rep',
-      'tee',
-      'ere',
-      'het',
-    ]
+      'tee'
+    ],
+    placedWords: 8,
+    columnsUsed: 9,
+    rowsUsed: 8
   },
   {
     letters: 'uotpvw',
-    words: ['out', 'two', 'put', 'top', 'pot', 'opt', 'tow', 'vow']
+    words: ['out', 'two', 'put', 'top', 'pot', 'opt', 'tow', 'vow'],
+    placedWords: 5,
+    columnsUsed: 5,
+    rowsUsed: 5
   },
   {
     letters: 'eorrlw',
@@ -160,17 +157,15 @@ export const letterCombos = [
       'role',
       'wore',
       'lore',
-      'lowe',
       'low',
       'row',
       'ore',
-      'owe',
-      'roe',
       'owl',
-      'ole',
-      'err',
-      'woe',
-    ]
+      'woe'
+    ],
+    placedWords: 9,
+    columnsUsed: 7,
+    rowsUsed: 8
   },
   {
     letters: 'uopdlc',
@@ -182,13 +177,13 @@ export const letterCombos = [
       'coup',
       'old',
       'cup',
-      'doc',
       'cop',
-      'col',
       'cod',
-      'pod',
-      'pol',
-    ]
+      'pod'
+    ],
+    placedWords: 6,
+    columnsUsed: 7,
+    rowsUsed: 8
   },
   {
     letters: 'oetnjg',
@@ -202,22 +197,28 @@ export const letterCombos = [
       'got',
       'net',
       'ten',
-      'joe',
       'jet',
       'ton',
       'ego',
-      'toe',
-      'eng',
-      'gen',
-    ]
+      'toe'
+    ],
+    placedWords: 10,
+    columnsUsed: 7,
+    rowsUsed: 8
   },
   {
     letters: 'ionvnl',
-    words: ['lion', 'linn', 'oil', 'inn', 'ion', 'nil', 'lin', 'von']
+    words: ['lion', 'oil', 'inn', 'ion', 'nil'],
+    placedWords: 5,
+    columnsUsed: 4,
+    rowsUsed: 5
   },
   {
     letters: 'iebfhl',
-    words: ['life', 'file', 'bile', 'lie', 'bel', 'lib', 'hie']
+    words: ['life', 'file', 'bile', 'lie'],
+    placedWords: 4,
+    columnsUsed: 6,
+    rowsUsed: 5
   },
   {
     letters: 'oakwht',
@@ -233,37 +234,11 @@ export const letterCombos = [
       'hat',
       'oak',
       'tow',
-      'oat',
-      'wat',
-      'tho',
-      'tao',
-    ]
-  },
-  {
-    letters: 'eagybw',
-    words: [
-      'wage',
-      'way',
-      'age',
-      'web',
-      'bay',
-      'bag',
-      'gay',
-      'bye',
-      'aye',
-      'awe',
-      'beg',
-      'yea',
-      'bey',
-    ]
-  },
-  {
-    letters: 'iesbmq',
-    words: ['semi', 'sim', 'bis', 'sei', 'ism', 'mis', 'ems']
-  },
-  {
-    letters: 'iuqsdc',
-    words: ['squid', 'disc', 'quid', 'dis', 'sic', 'ids', 'cis']
+      'oat'
+    ],
+    placedWords: 5,
+    columnsUsed: 5,
+    rowsUsed: 7
   },
   {
     letters: 'aicxrs',
@@ -277,15 +252,11 @@ export const letterCombos = [
       'air',
       'car',
       'sir',
-      'arc',
-      'sic',
-      'sac',
-      'rai',
-      'ars',
-      'sri',
-      'ras',
-      'cis',
-    ]
+      'arc'
+    ],
+    placedWords: 8,
+    columnsUsed: 8,
+    rowsUsed: 7
   },
   {
     letters: 'aiwnrk',
@@ -300,42 +271,17 @@ export const letterCombos = [
       'win',
       'ran',
       'raw',
-      'wan',
       'ink',
-      'ark',
-      'kin',
-      'rai',
-    ]
-  },
-  {
-    letters: 'aimcvr',
-    words: [
-      'vicar',
-      'marc',
-      'amir',
-      'mica',
-      'air',
-      'car',
-      'via',
-      'arm',
-      'aim',
-      'mac',
-      'ram',
-      'rim',
-      'arc',
-      'mar',
-      'cam',
-      'mir',
-      'rai',
-      'var',
-      'ami',
-    ]
+      'kin'
+    ],
+    placedWords: 7,
+    columnsUsed: 8,
+    rowsUsed: 7
   },
   {
     letters: 'aeztsn',
     words: [
       'east',
-      'sent',
       'seat',
       'neat',
       'nest',
@@ -354,26 +300,13 @@ export const letterCombos = [
       'eat',
       'tea',
       'ate',
-      'sen',
       'tan',
       'ant',
-      'zen',
-    ]
-  },
-  {
-    letters: 'eenhps',
-    words: [
-      'sheep',
-      'seen',
-      'pens',
-      'hens',
-      'see',
-      'she',
-      'pen',
-      'sen',
-      'hen',
-      'nee',
-    ]
+      'zen'
+    ],
+    placedWords: 21,
+    columnsUsed: 11,
+    rowsUsed: 14 
   },
   {
     letters: 'iuftsf',
@@ -385,41 +318,11 @@ export const letterCombos = [
       'fits',
       'its',
       'fit',
-      'sit',
-      'tis',
-    ]
-  },
-  {
-    letters: 'aapszr',
-    words: [
-      'paras',
-      'para',
-      'pars',
-      'par',
-      'spa',
-      'sap',
-      'asp',
-      'rap',
-      'pas',
-      'ras',
-      'ars',
-    ]
-  },
-  {
-    letters: 'eegsrx',
-    words: [
-      'seer',
-      'rees',
-      'see',
-      'sex',
-      'reg',
-      'gee',
-      'ere',
-      'ers',
-      'res',
-      'rex',
-      'ser',
-    ]
+      'sit'
+    ],
+    placedWords: 6,
+    columnsUsed: 5,
+    rowsUsed: 8 
   },
   {
     letters: 'eaycps',
@@ -439,23 +342,17 @@ export const letterCombos = [
       'pay',
       'yes',
       'sea',
-      'cap',
-      'sec',
       'ace',
       'spa',
       'sap',
-      'aye',
       'spy',
-      'asp',
-      'pac',
-      'pas',
-      'sac',
       'pea',
-      'ape',
-      'yea',
-    ]
+      'ape'
+    ],
+    placedWords: 17,
+    columnsUsed: 9,
+    rowsUsed: 13 
   },
-  { letters: 'ualytk', words: ['talk', 'lay', 'kay', 'alt', 'tau', 'lat'] },
   {
     letters: 'eivjfl',
     words: [
@@ -467,9 +364,11 @@ export const letterCombos = [
       'veil',
       'vile',
       'lie',
-      'vie',
-      'lev',
-    ]
+      'vie'
+    ],
+    placedWords: 8,
+    columnsUsed: 7,
+    rowsUsed: 9 
   },
   {
     letters: 'aognyr',
@@ -482,31 +381,32 @@ export const letterCombos = [
       'gray',
       'rang',
       'yarn',
-      'yang',
-      'gran',
       'yoga',
       'any',
       'ago',
       'nor',
       'ran',
       'ray',
-      'gay',
       'rag',
-      'nay',
-      'yon',
-      'oar',
-      'goa',
-      'gan',
-    ]
+      'oar'
+    ],
+    placedWords: 11,
+    columnsUsed: 10,
+    rowsUsed: 10 
   },
-  { letters: 'aodydw', words: ['way', 'day', 'add', 'dad', 'odd', 'ado', 'dow'] },
   {
     letters: 'eiyrtq',
-    words: ['tier', 'tire', 'rite', 'tyre', 'yet', 'try', 'tie', 'rye', 'ire']
+    words: ['tier', 'tire', 'rite', 'yet', 'try', 'tie', 'rye'],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 7 
   },
   {
     letters: 'eudlkx',
-    words: ['duke', 'duel', 'led', 'due', 'del', 'elk', 'lex']
+    words: ['duke', 'duel', 'led', 'due', 'elk'],
+    placedWords: 5,
+    columnsUsed: 6,
+    rowsUsed: 5 
   },
   {
     letters: 'eowxfd',
@@ -516,15 +416,15 @@ export const letterCombos = [
       'fox',
       'fed',
       'owe',
-      'doe',
       'wed',
       'foe',
       'dew',
-      'def',
       'woe',
-      'ode',
-      'dow',
-    ]
+      'ode'
+    ],
+    placedWords: 7,
+    columnsUsed: 6,
+    rowsUsed: 7 
   },
   {
     letters: 'eomjhd',
@@ -532,15 +432,13 @@ export const letterCombos = [
       'home',
       'mode',
       'dome',
-      'joe',
       'doe',
-      'med',
-      'mod',
       'hem',
-      'ode',
-      'hoe',
-      'dom',
-    ]
+      'ode'
+    ],
+    placedWords: 5,
+    columnsUsed: 6,
+    rowsUsed: 7 
   },
   {
     letters: 'aefszc',
@@ -552,37 +450,18 @@ export const letterCombos = [
       'safe',
       'cafe',
       'sea',
-      'sec',
-      'ace',
-      'sac',
-      'fas',
-    ]
+      'ace'
+    ],
+    placedWords: 8,
+    columnsUsed: 7,
+    rowsUsed: 9 
   },
   {
     letters: 'aigdfp',
-    words: ['paid', 'aid', 'gap', 'dip', 'pad', 'dig', 'fig', 'pig', 'fad']
-  },
-  {
-    letters: 'iefskn',
-    words: [
-      'knife',
-      'fines',
-      'fine',
-      'skin',
-      'sink',
-      'sine',
-      'fink',
-      'fins',
-      'ken',
-      'ink',
-      'sin',
-      'ski',
-      'sen',
-      'kin',
-      'fin',
-      'sei',
-      'ins',
-    ]
+    words: ['paid', 'aid', 'gap', 'dip', 'pad', 'dig', 'fig', 'pig', 'fad'],
+    placedWords: 6,
+    columnsUsed: 6,
+    rowsUsed: 7 
   },
   {
     letters: 'aessxp',
@@ -594,16 +473,15 @@ export const letterCombos = [
       'peas',
       'apes',
       'sea',
-      'sex',
       'spa',
       'sap',
-      'asp',
       'axe',
-      'pas',
-      'ass',
       'pea',
-      'ape',
-    ]
+      'ape'
+    ],
+    placedWords: 11,
+    columnsUsed: 8,
+    rowsUsed: 11 
   },
   {
     letters: 'aoxgft',
@@ -617,12 +495,11 @@ export const letterCombos = [
       'fat',
       'tag',
       'fog',
-      'oft',
-      'aft',
-      'oat',
-      'goa',
-      'tao',
-    ]
+      'oat'
+    ],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 5 
   },
   {
     letters: 'aowtgv',
@@ -635,13 +512,18 @@ export const letterCombos = [
       'vat',
       'tow',
       'vow',
-      'oat',
-      'wat',
-      'goa',
-      'tao',
-    ]
+      'oat'
+    ],
+    placedWords: 6,
+    columnsUsed: 5,
+    rowsUsed: 5 
   },
-  { letters: 'oiwcvt', words: ['two', 'cow', 'wit', 'tow', 'cot', 'vow', 'tic'] },
+  { letters: 'oiwcvt',
+    words: ['two', 'cow', 'wit', 'tow', 'cot', 'vow', 'tic'],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 5 
+  },
   {
     letters: 'aemtss',
     words: [
@@ -656,7 +538,6 @@ export const letterCombos = [
       'meats',
       'same',
       'team',
-      'east',
       'mass',
       'seat',
       'meat',
@@ -679,17 +560,24 @@ export const letterCombos = [
       'eat',
       'tea',
       'ate',
-      'mat',
-      'mas',
-      'ass',
-      'ems',
-      'mae',
-    ]
+      'mat'
+    ],
+    placedWords: 26,
+    columnsUsed: 19,
+    rowsUsed: 15 
   },
-  { letters: 'oalxyl', words: ['loyal', 'alloy', 'ally', 'all', 'lay', 'lax'] },
+  { letters: 'oalxyl',
+    words: ['loyal', 'alloy', 'ally', 'all', 'lay'],
+    placedWords: 5,
+    columnsUsed: 5,
+    rowsUsed: 7 
+  },
   {
     letters: 'aoclvc',
-    words: ['vocal', 'coal', 'cola', 'coca', 'oval', 'col', 'lac']
+    words: ['vocal', 'coal', 'cola', 'coca', 'oval'],
+    placedWords: 5,
+    columnsUsed: 7,
+    rowsUsed: 8 
   },
   {
     letters: 'eicdbh',
@@ -700,34 +588,25 @@ export const letterCombos = [
       'die',
       'bid',
       'ice',
-      'chi',
-      'hid',
-      'ich',
-      'hie',
-    ]
+      'hid'
+    ],
+    placedWords: 7,
+    columnsUsed: 6,
+    rowsUsed: 7 
   },
-  { letters: 'uaptvv', words: ['put', 'pat', 'tap', 'vat', 'apt', 'tau'] },
   {
     letters: 'auphlc',
-    words: ['haul', 'chap', 'clap', 'cup', 'cap', 'lap', 'pal', 'pac', 'lac']
+    words: ['haul', 'chap', 'clap', 'cup', 'cap', 'lap', 'pal'],
+    placedWords: 6,
+    columnsUsed: 6,
+    rowsUsed: 6 
   },
-  {
-    letters: 'eephns',
-    words: [
-      'sheep',
-      'seen',
-      'pens',
-      'hens',
-      'see',
-      'she',
-      'pen',
-      'sen',
-      'hen',
-      'nee',
-    ]
+  { letters: 'oemhmz',
+    words: ['home', 'memo', 'mom', 'hem'],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 6 
   },
-  { letters: 'oemhmz', words: ['home', 'memo', 'mom', 'hem', 'hoe', 'mem'] },
-  { letters: 'oebmbj', words: ['bomb', 'job', 'bob', 'joe', 'mob', 'ebb'] },
   {
     letters: 'eaxvrh',
     words: [
@@ -739,68 +618,50 @@ export const letterCombos = [
       'her',
       'era',
       'ear',
-      'rev',
-      'ave',
       'axe',
-      'rex',
-      'var',
-    ]
+      'var'
+    ],
+    placedWords: 9,
+    columnsUsed: 6,
+    rowsUsed: 8 
   },
   {
     letters: 'iotycx',
-    words: ['toxic', 'city', 'toy', 'cox', 'icy', 'cot', 'tic']
-  },
-  {
-    letters: 'oomlzs',
-    words: [
-      'mools',
-      'looms',
-      'solo',
-      'zoom',
-      'loom',
-      'zoo',
-      'sol',
-      'mol',
-      'loo',
-      'som',
-      'mos',
-    ]
-  },
-  {
-    letters: 'eayvzg',
-    words: ['gave', 'gaze', 'age', 'gay', 'ave', 'aye', 'yea']
+    words: ['toxic', 'city', 'toy', 'icy', 'cot', 'tic'],
+    placedWords: 5,
+    columnsUsed: 5,
+    rowsUsed: 5 
   },
   {
     letters: 'uegzld',
-    words: ['glued', 'glue', 'duel', 'led', 'due', 'leg', 'del', 'gel', 'dug']
+    words: ['glued', 'glue', 'duel', 'due', 'leg', 'gel', 'dug'],
+    placedWords: 5,
+    columnsUsed: 5,
+    rowsUsed: 7 
   },
-  { letters: 'oaggjn', words: ['gang', 'gong', 'ago', 'gag', 'goa', 'gan'] },
-  { letters: 'aojztw', words: ['two', 'jaw', 'tow', 'oat', 'wat', 'tao'] },
+  { letters: 'oaggjn',
+    words: ['gang', 'gong', 'ago', 'gag'],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 5 
+  },
   {
     letters: 'audsnm',
     words: [
       'sand',
-      'damn',
-      'maud',
-      'anus',
       'dams',
-      'dans',
       'and',
       'man',
       'sun',
       'sum',
-      'dan',
       'sad',
       'mad',
       'mud',
-      'dam',
-      'dun',
-      'mas',
-      'mus',
-      'ads',
-      'nam',
-      'uns',
-    ]
+      'dam'
+    ],
+    placedWords: 7,
+    columnsUsed: 5,
+    rowsUsed: 7 
   },
   {
     letters: 'aeqtry',
@@ -809,7 +670,6 @@ export const letterCombos = [
       'rate',
       'tear',
       'tray',
-      'tyre',
       'are',
       'yet',
       'art',
@@ -821,50 +681,48 @@ export const letterCombos = [
       'ear',
       'ate',
       'rat',
-      'aye',
       'rye',
-      'tar',
-      'yea',
-    ]
+      'tar'
+    ],
+    placedWords: 14,
+    columnsUsed: 9,
+    rowsUsed: 10 
   },
   {
     letters: 'aerxhz',
-    words: ['hear', 'hare', 'haze', 'are', 'her', 'era', 'ear', 'axe', 'rex']
+    words: ['hear', 'hare', 'haze', 'are', 'her', 'era', 'ear', 'axe'],
+    placedWords: 8,
+    columnsUsed: 6,
+    rowsUsed: 8
   },
   {
     letters: 'iakrzm',
     words: [
       'mark',
-      'amir',
       'air',
       'arm',
       'aim',
       'ram',
       'rim',
-      'mar',
-      'ark',
-      'mir',
-      'rai',
-      'ami',
-    ]
+      'mar'
+    ],
+    placedWords: 7,
+    columnsUsed: 4,
+    rowsUsed: 9
   },
-  {
-    letters: 'ouwdsh',
-    words: ['show', 'who', 'how', 'sod', 'sow', 'dos', 'dow']
-  },
-  { letters: 'aufgtz', words: ['fat', 'tag', 'gut', 'tug', 'aft', 'tau'] },
-  { letters: 'uahtgz', words: ['hat', 'tag', 'hut', 'gut', 'tug', 'hug', 'tau'] },
   {
     letters: 'iublpr',
-    words: ['blur', 'pub', 'lip', 'rip', 'rub', 'rib', 'lib', 'bur']
-  },
-  {
-    letters: 'iaxdpf',
-    words: ['paid', 'aid', 'fax', 'fix', 'dip', 'pad', 'fad']
+    words: ['blur', 'pub', 'lip', 'rip', 'rub', 'rib'],
+    placedWords: 4,
+    columnsUsed: 4,
+    rowsUsed: 5
   },
   {
     letters: 'aikytc',
-    words: ['city', 'tick', 'tack', 'act', 'kit', 'cat', 'kay', 'icy', 'tic']
+    words: ['city', 'tick', 'tack', 'act', 'cat', 'icy', 'tic'],
+    placedWords: 6,
+    columnsUsed: 5,
+    rowsUsed: 7
   },
   {
     letters: 'uatbrx',
@@ -879,14 +737,18 @@ export const letterCombos = [
       'rub',
       'tub',
       'tar',
-      'bra',
-      'tau',
-      'bur',
-    ]
+      'bra'
+    ],
+    placedWords: 6,
+    columnsUsed: 7,
+    rowsUsed: 4
   },
   {
     letters: 'aedwqx',
-    words: ['waxed', 'wade', 'wax', 'awe', 'wed', 'axe', 'dew']
+    words: ['waxed', 'wade', 'wax', 'awe', 'axe', 'dew'],
+    placedWords: 4,
+    columnsUsed: 5,
+    rowsUsed: 6
   },
   {
     letters: 'aeljsv',
@@ -898,38 +760,11 @@ export const letterCombos = [
       'vale',
       'vase',
       'sea',
-      'les',
-      'ave',
-      'lea',
-      'ale',
-      'sal',
-      'lev',
-      'vas',
-      'als',
-      'las',
-    ]
-  },
-  { letters: 'oaggvd', words: ['ago', 'god', 'dog', 'gag', 'ado', 'goa'] },
-  { letters: 'eorrmk', words: ['more', 'ore', 'roe', 'rem', 'err', 'rom'] },
-  {
-    letters: 'aownxj',
-    words: ['axon', 'now', 'own', 'won', 'wan', 'jaw', 'wax']
-  },
-  {
-    letters: 'eetvsk',
-    words: ['seek', 'vest', 'see', 'set', 'eve', 'tee', 'vet']
-  },
-  {
-    letters: 'uahttv',
-    words: ['that', 'taut', 'hat', 'hut', 'vat', 'tat', 'tau', 'att']
-  },
-  {
-    letters: 'uoshmx',
-    words: ['ohms', 'sum', 'hum', 'sox', 'som', 'mos', 'mus']
-  },
-  {
-    letters: 'iadtjb',
-    words: ['bait', 'bad', 'bit', 'aid', 'bid', 'bat', 'tab', 'dab', 'dit']
+      'ale'
+    ],
+    placedWords: 6,
+    columnsUsed: 7,
+    rowsUsed: 5
   },
   {
     letters: 'ietpfl',
@@ -942,7 +777,6 @@ export const letterCombos = [
       'pile',
       'flip',
       'tile',
-      'let',
       'fit',
       'lie',
       'tie',
@@ -951,18 +785,11 @@ export const letterCombos = [
       'pit',
       'lit',
       'pie',
-      'lip',
-      'til',
-      'tel',
-    ]
-  },
-  {
-    letters: 'oomzdy',
-    words: ['moody', 'mood', 'zoom', 'doom', 'zoo', 'mod', 'dom']
-  },
-  {
-    letters: 'oakfws',
-    words: ['sofa', 'soak', 'oaks', 'was', 'saw', 'ask', 'oak', 'sow', 'fas']
+      'lip'
+    ],
+    placedWords: 12,
+    columnsUsed: 10,
+    rowsUsed: 10
   },
   {
     letters: 'eurvtg',
@@ -970,14 +797,14 @@ export const letterCombos = [
       'true',
       'urge',
       'get',
-      'rev',
       'gut',
-      'reg',
       'vet',
       'rug',
-      'tug',
-      'rue',
-    ]
+      'tug'
+    ],
+    placedWords: 6,
+    columnsUsed: 6,
+    rowsUsed: 6
   },
   {
     letters: 'eotmsm',
@@ -986,19 +813,15 @@ export const letterCombos = [
       'most',
       'stem',
       'memo',
-      'tome',
       'toes',
       'set',
       'met',
-      'tom',
       'mom',
-      'toe',
-      'mot',
-      'som',
-      'mem',
-      'ems',
-      'mos',
-    ]
+      'toe'
+    ],
+    placedWords: 5,
+    columnsUsed: 6,
+    rowsUsed: 5
   },
   {
     letters: 'aibxdl',
@@ -1013,12 +836,11 @@ export const letterCombos = [
       'lab',
       'lid',
       'lad',
-      'lax',
-      'lib',
-      'dal',
-      'dab',
-      'bal',
-    ]
+      'dab'
+    ],
+    placedWords: 7,
+    columnsUsed: 8,
+    rowsUsed: 7
   },
   {
     letters: 'eospdn',
@@ -1026,9 +848,6 @@ export const letterCombos = [
       'spend',
       'nodes',
       'ponds',
-      'posed',
-      'opens',
-      'does',
       'open',
       'done',
       'send',
@@ -1039,7 +858,6 @@ export const letterCombos = [
       'node',
       'sped',
       'dope',
-      'pons',
       'pens',
       'nods',
       'pods',
@@ -1048,35 +866,27 @@ export const letterCombos = [
       'one',
       'end',
       'son',
-      'don',
       'pen',
-      'sen',
       'nod',
-      'doe',
       'den',
-      'nos',
       'pod',
-      'sod',
-      'ode',
-      'eds',
-      'dos',
-    ]
+      'ode'
+    ],
+    placedWords: 23,
+    columnsUsed: 15,
+    rowsUsed: 16 
   },
   {
     letters: 'oanfdv',
     words: [
       'fond',
       'nova',
-      'dona',
       'and',
       'van',
-      'don',
-      'dan',
       'fan',
       'nod',
       'fad',
-      'ado',
-      'von',
+      'ado'
     ]
   },
   { letters: 'oubnpn', words: ['upon', 'noun', 'pub', 'nun', 'bun', 'pun'] },
@@ -1092,16 +902,8 @@ export const letterCombos = [
       'yes',
       'sea',
       'lay',
-      'les',
-      'aye',
-      'lea',
       'ale',
-      'sly',
-      'sal',
-      'ley',
-      'yea',
-      'als',
-      'las',
+      'sly'
     ]
   },
   {
@@ -1109,7 +911,6 @@ export const letterCombos = [
     words: [
       'vendor',
       'drove',
-      'devon',
       'over',
       'done',
       'oven',
@@ -1120,39 +921,15 @@ export const letterCombos = [
       'end',
       'red',
       'nor',
-      'don',
       'ore',
       'rod',
-      'rev',
       'nod',
       'doe',
       'den',
-      'roe',
-      'ode',
-      'dev',
-      'von',
+      'ode'
     ]
   },
-  {
-    letters: 'eecmsr',
-    words: [
-      'merces',
-      'seem',
-      'mere',
-      'seer',
-      'rees',
-      'see',
-      'sec',
-      'rem',
-      'rec',
-      'ere',
-      'ems',
-      'ser',
-      'ers',
-      'res',
-    ]
-  },
-  { letters: 'iudqht', words: ['quit', 'quid', 'hit', 'hut', 'hid', 'dit'] },
+  { letters: 'iudqht', words: ['quit', 'quid', 'hit', 'hut', 'hid'] },
   {
     letters: 'oavbrf',
     words: [
@@ -1165,9 +942,7 @@ export const letterCombos = [
       'bar',
       'rob',
       'bra',
-      'fro',
-      'oar',
-      'var',
+      'oar'
     ]
   },
   {
@@ -1179,10 +954,7 @@ export const letterCombos = [
       'poke',
       'pore',
       'per',
-      'pro',
-      'ore',
-      'rep',
-      'roe',
+      'ore'
     ]
   },
   {
@@ -1195,11 +967,9 @@ export const letterCombos = [
       'via',
       'aid',
       'van',
-      'dan',
       'fan',
       'fin',
-      'din',
-      'fad',
+      'fad'
     ]
   },
   {
@@ -1221,11 +991,7 @@ export const letterCombos = [
       'wed',
       'hid',
       'hen',
-      'din',
-      'dew',
-      'wen',
-      'hew',
-      'hie',
+      'dew'
     ]
   },
   {
@@ -1235,12 +1001,9 @@ export const letterCombos = [
       'team',
       'date',
       'meat',
-      'matt',
-      'dame',
       'mate',
       'mead',
       'tame',
-      'tate',
       'meta',
       'met',
       'eat',
@@ -1249,11 +1012,7 @@ export const letterCombos = [
       'ted',
       'ate',
       'dam',
-      'mat',
-      'med',
-      'tat',
-      'att',
-      'mae',
+      'mat'
     ]
   },
   {
@@ -1274,17 +1033,11 @@ export const letterCombos = [
       'lied',
       'veil',
       'vile',
-      'vide',
       'led',
       'die',
       'lie',
       'fed',
-      'del',
-      'lid',
-      'vie',
-      'def',
-      'lev',
-      'dev',
+      'lid'
     ]
   }
 ]

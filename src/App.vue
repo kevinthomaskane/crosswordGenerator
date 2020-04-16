@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="crossword-wrapper" v-for="(letterCombo, i) of LETTERCOMBOS.slice(0, 9)" :key="i">
+    <div class="crossword-wrapper" v-for="(letterCombo, i) of LETTERCOMBOS.slice(54, 58)" :key="i">
       <crossword
         :letterCombo="letterCombo"
       />
