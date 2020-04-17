@@ -1,10 +1,16 @@
 <template>
   <div class="crossword-container">
     <h1>{{ letterCombo.letters }}</h1>
+    <div class="row" v-for="(row, i) of grid" :key="i">
+      <div class="space" v-for="(col, j) of row" :key="j">{{ col ? col.letter : '' }}</div>
+    </div>
   </div>
 </template>
 <script>
 /* eslint-disable */
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.crossDomain = true;
 
 export default {
   name: 'Crossword',
@@ -26,6 +32,7 @@ export default {
     this.placeFirstWord()
     this.fillGrid()
     this.removeUnusedSpaces()
+    /* this.postToBackEnd() */
   },
   methods: {
     /**
@@ -34,7 +41,7 @@ export default {
     setStartingGrid () {
       const grid = []
       while (grid.length < 20) {
-        const row = new Array(20).fill(undefined)
+        const row = new Array(20).fill(null)
         grid.push(row)
       }
       this.grid = grid
@@ -52,11 +59,10 @@ export default {
       const coordinates = []
       // we'll start at row 9, column 0 which will correspond with i
       for (let i = 0; i < letters.length; i++) {
-        /* this.grid[9][i] = { */
-        /* letter: letters[i], */
-        /* partOfWord: word */
-        /* } */
-        this.grid[9][i] = letters[i]
+        this.grid[9][i] = {
+          letter: letters[i],
+          partOfWord: word
+        }
         coordinates.push([9, i])
       }
 
@@ -269,7 +275,10 @@ export default {
      * @return {boolean} 
      */
     isCurrentSpotClear (ROW, COL) {
-      return typeof this.grid[ROW, COL] !== 'string'
+      if (this.grid[ROW][COL] === null || this.grid[ROW][COL] === undefined) {
+        return true
+      }
+      return false
     },
 
     /**
@@ -279,7 +288,7 @@ export default {
      * @return {boolean} 
      */
     isLeftSpotClear (ROW, COL) {
-      if (typeof this.grid[ROW][COL - 1] !== 'string') {
+      if (this.grid[ROW][COL - 1] === null || this.grid[ROW][COL - 1] === undefined) {
         return true
       }
       return false
@@ -292,7 +301,7 @@ export default {
      * @return {boolean} 
      */
     isRightSpotClear (ROW, COL) {
-      if (typeof this.grid[ROW][COL + 1] !== 'string') {
+      if (this.grid[ROW][COL + 1] === null || this.grid[ROW][COL + 1] === undefined) {
         return true
       }
       return false
@@ -308,7 +317,8 @@ export default {
       if (this.grid[ROW + 1] === undefined) {
         return true
       }
-      if (typeof this.grid[ROW + 1][COL] !== 'string') {
+
+      if (this.grid[ROW + 1][COL] === null || this.grid[ROW + 1][COL] === undefined) {
         return true
       }
       return false
@@ -324,7 +334,8 @@ export default {
       if (this.grid[ROW - 1] === undefined) {
         return true
       }
-      if (typeof this.grid[ROW - 1][COL] !== 'string') {
+
+      if (this.grid[ROW - 1][COL] === null || this.grid[ROW - 1][COL] === undefined) {
         return true
       }
       return false
@@ -347,12 +358,10 @@ export default {
           this.furthestColumn = COL
         }
         // place these new letters onto the grid
-        /* this.grid[ROW][COL] = {
-         *   letter: LETTERS[i],
-         *   partOfWord: WORD
-         * }
-         */
-        this.grid[ROW][COL] = LETTERS[i]
+        this.grid[ROW][COL] = {
+          letter: LETTERS[i],
+          partOfWord: WORD
+        }
       }
 
       // add to placed words array
@@ -369,11 +378,45 @@ export default {
      */
     removeUnusedSpaces () {
       // if every value in the row is null, we want to filter that out.  then remove unused columns
-      this.grid = this.grid.filter(row => !row.every(col => col === undefined)).map(row => row.slice(0, this.furthestColumn + 1))
-      console.table(this.grid)
-      console.log(this.placedWords.length)
+      this.grid = this.grid.filter(row => !row.every(col => col === null)).map(row => row.slice(0, this.furthestColumn + 1))
+    },
+    postToBackEnd () {
+      const letterCombo = JSON.parse(JSON.stringify(this.letterCombo))
+
+      letterCombo['grid'] = this.grid
+      letterCombo['placedWords'] = this.placedWords.length
+
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/post-crossword',
+        data: letterCombo,
+        headers: {
+          'access-control-allow-origin': 'http://localhost:8080'
+        }
+      })
+      .then(console.log)
     }
   }
 
 }
 </script>
+
+<style lang="scss">
+.crossword-container {
+  .row {
+    display: flex;
+    justify-content: center;
+    .space {
+      display: flex;
+      width: 2rem;
+      height: 2rem;
+      justify-content: center;
+      align-items: center;
+      border: solid 1px black;
+      color: white;
+      font-weight: bold;
+      background: blue;
+    }
+  }
+}
+</style>
