@@ -17,13 +17,15 @@ export default {
   data () {
     return {
       grid: [],
-      placedWords: []
+      placedWords: [],
+      furthestColumn: -1
     }
   },
   mounted () {
     this.setStartingGrid()
     this.placeFirstWord()
     this.fillGrid()
+    this.removeUnusedSpaces()
   },
   methods: {
     /**
@@ -32,7 +34,7 @@ export default {
     setStartingGrid () {
       const grid = []
       while (grid.length < 20) {
-        const row = new Array(20).fill(0)
+        const row = new Array(20).fill(undefined)
         grid.push(row)
       }
       this.grid = grid
@@ -143,6 +145,7 @@ export default {
                       continue nextPlacedLetter
                     }
 
+                    // if letter is surrounded by anything, it must pass all checks
                     if (this.isRightSpotClear(ROW, COL) &&
                         this.isLeftSpotClear(ROW, COL) &&
                         this.isTopSpotClear(ROW, COL) &&
@@ -229,8 +232,6 @@ export default {
           }
         }
       }
-      console.table(this.grid)
-      console.log(this.placedWords.length)
     },
 
     /**
@@ -259,11 +260,24 @@ export default {
       return false
     },
 
+    // CHANGE THESE BACK TO OBJECT AFTER TESTING ////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @desc determines whether the current spot of unplaced letter is open
+     * @param {number} ROW - row index of unplaced letter
+     * @param {number} COL - col index of unplaced letter
+     * @return {boolean} 
+     */
     isCurrentSpotClear (ROW, COL) {
       return typeof this.grid[ROW, COL] !== 'string'
     },
 
-    // CHANGE THESE BACK TO OBJECT AFTER TESTING
+    /**
+     * @desc determines whether the spot to the left of unplaced letter is open
+     * @param {number} ROW - row index of unplaced letter
+     * @param {number} COL - col index of unplaced letter
+     * @return {boolean} 
+     */
     isLeftSpotClear (ROW, COL) {
       if (typeof this.grid[ROW][COL - 1] !== 'string') {
         return true
@@ -271,6 +285,12 @@ export default {
       return false
     },
 
+    /**
+     * @desc determines whether the spot to the right of unplaced letter is open
+     * @param {number} ROW - row index of unplaced letter
+     * @param {number} COL - col index of unplaced letter
+     * @return {boolean} 
+     */
     isRightSpotClear (ROW, COL) {
       if (typeof this.grid[ROW][COL + 1] !== 'string') {
         return true
@@ -278,6 +298,12 @@ export default {
       return false
     },
 
+    /**
+     * @desc determines whether the spot to the bottom of unplaced letter is open
+     * @param {number} ROW - row index of unplaced letter
+     * @param {number} COL - col index of unplaced letter
+     * @return {boolean} 
+     */
     isBottomSpotClear (ROW, COL) {
       if (this.grid[ROW + 1] === undefined) {
         return true
@@ -288,6 +314,12 @@ export default {
       return false
     },
 
+    /**
+     * @desc determines whether the spot to the top of unplaced letter is open
+     * @param {number} ROW - row index of unplaced letter
+     * @param {number} COL - col index of unplaced letter
+     * @return {boolean} 
+     */
     isTopSpotClear (ROW, COL) {
       if (this.grid[ROW - 1] === undefined) {
         return true
@@ -297,6 +329,7 @@ export default {
       }
       return false
     },
+
     /**
      * @desc adds the letters to the grid and adds them to the placed words array
      * @param {array} LETTER_COORDINATES - letter coordinates for unplaced word
@@ -309,6 +342,10 @@ export default {
         const ROW = LETTER_COORDINATES[i][0]
         const COL = LETTER_COORDINATES[i][1]
 
+        // keep track of the furthest column so we can remove unused indices from grid
+        if (COL > this.furthestColumn) {
+          this.furthestColumn = COL
+        }
         // place these new letters onto the grid
         /* this.grid[ROW][COL] = {
          *   letter: LETTERS[i],
@@ -325,6 +362,16 @@ export default {
         coordinates: LETTER_COORDINATES,
         layout: placedWord.layout === 'vertical' ? 'horizontal' : 'vertical'
       })
+    },
+
+    /**
+     * @desc removes unused rows and columns from the grid, in order to 'center' the crossword
+     */
+    removeUnusedSpaces () {
+      // if every value in the row is null, we want to filter that out.  then remove unused columns
+      this.grid = this.grid.filter(row => !row.every(col => col === undefined)).map(row => row.slice(0, this.furthestColumn + 1))
+      console.table(this.grid)
+      console.log(this.placedWords.length)
     }
   }
 

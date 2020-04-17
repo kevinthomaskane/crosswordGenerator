@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="crossword-wrapper" v-for="(letterCombo, i) of current" :key="i">
+    <div class="crossword-wrapper" v-for="(letterCombo, i) of LETTERCOMBOS.slice(0,2)" :key="i">
       <crossword
         :letterCombo="letterCombo"
       />
@@ -24,40 +24,30 @@ export default {
       grid: [],
       current: [
         {
-          letters: 'eospdn',
+          letters: 'eifldv',
           words: [
-            'spend',
-            'nodes',
-            'ponds',
-            'posed',
-            'opens',
-            'does',
-            'open',
-            'done',
-            'send',
-            'nose',
-            'dose',
-            'pose',
-            'pond',
-            'node',
-            'sped',
-            'dope',
-            'pens',
-            'nods',
-            'pods',
-            'ends',
-            'ones',
-            'one',
-            'end',
-            'son',
-            'pen',
-            'nod',
-            'den',
-            'pod',
-            'ode'
-          ]
-        },
-      ]
+            'field',
+            'devil',
+            'filed',
+            'lived',
+            'life',
+            'five',
+            'live',
+            'file',
+            'evil',
+            'fled',
+            'idle',
+            'dive',
+            'lied',
+            'veil',
+            'vile',
+            'led',
+            'die',
+            'lie',
+            'fed',
+            'lid',
+          ],
+        }      ]
     }
   },
   mounted () {
