@@ -848,6 +848,9 @@ export const letterCombos = [
       'spend',
       'nodes',
       'ponds',
+      'posed',
+      'opens',
+      'does',
       'open',
       'done',
       'send',
@@ -871,10 +874,7 @@ export const letterCombos = [
       'den',
       'pod',
       'ode'
-    ],
-    placedWords: 23,
-    columnsUsed: 15,
-    rowsUsed: 16 
+    ]
   },
   {
     letters: 'oanfdv',

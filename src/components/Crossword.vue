@@ -113,29 +113,45 @@ export default {
 
                     // check if we are at the matching letter and make sure we aren't overwriting a currently placed word
                     if (JSON.stringify(placedLetterCoordinates) === JSON.stringify(LETTER_COORDINATES[i]) &&
-                        (this.grid[ROW + 1] === undefined || this.grid[ROW + 1][COL] === 0) &&
-                        (this.grid[ROW - 1] === undefined || this.grid[ROW - 1][COL] === 0)) {
+                        this.isTopSpotClear(ROW, COL) &&
+                        this.isBottomSpotClear(ROW, COL)) {
                       continue
                     }
 
-                    // indicates we are in the last column without an adjacent letter
-                    if (this.grid[ROW][COL + 1] === undefined && this.grid[ROW][COL - 1] === 0) {
-                      continue
-                    }
+                    const nextSpot = this.grid[ROW + 1] ? [ROW + 1, COL] : undefined
+                    const prevSpot = this.grid[ROW - 1] ? [ROW - 1, COL] : undefined
 
-                    // indicates we are in the first column without an adjacent letter
-                    if (this.grid[ROW][COL - 1] === undefined && this.grid[ROW][COL + 1] === 0) {
-                      continue
-                    }
-
-                    // if any of these eval to false, we know that the spot is either filled or adjacent to another letter
-                    if (this.grid[ROW][COL] !== 0 ||
-                        this.grid[ROW][COL + 1] !== 0  ||
-                        this.grid[ROW][COL - 1] !== 0) {
-
-                      // this word doesn't fit at the current letter, so go to the next letter in the placed word
+                    // if we are at the spot right above the matching letter
+                    if (JSON.stringify(nextSpot) === JSON.stringify(placedLetterCoordinates)) {
+                      if (this.isRightSpotClear(ROW, COL) &&
+                          this.isLeftSpotClear(ROW, COL) &&
+                          this.isCurrentSpotClear(ROW, COL) &&
+                          this.isTopSpotClear(ROW, COL)) {
+                        continue
+                      } 
                       continue nextPlacedLetter
                     }
+
+                    // if we are at the spot right below the matching letter
+                    if (JSON.stringify(prevSpot) === JSON.stringify(placedLetterCoordinates)) {
+                      if (this.isRightSpotClear(ROW, COL) &&
+                          this.isLeftSpotClear(ROW, COL) &&
+                          this.isCurrentSpotClear(ROW, COL) &&
+                          this.isBottomSpotClear(ROW, COL)) {
+                        continue
+                      } 
+                      continue nextPlacedLetter
+                    }
+
+                    if (this.isRightSpotClear(ROW, COL) &&
+                        this.isLeftSpotClear(ROW, COL) &&
+                        this.isTopSpotClear(ROW, COL) &&
+                        this.isCurrentSpotClear(ROW, COL) &&
+                        this.isBottomSpotClear(ROW, COL)) {
+                      continue
+                    } 
+
+                    continue nextPlacedLetter
                   }
 
                   // if we make it this far, then we know that the LETTERS have valid coordinates and are ready to be placed on grid
@@ -161,29 +177,45 @@ export default {
 
                     // check if we are at the matching letter and make sure we aren't overwriting a currently placed word
                     if (JSON.stringify(placedLetterCoordinates) === JSON.stringify(LETTER_COORDINATES[i]) &&
-                        (this.grid[ROW][COL + 1] === 0 || this.grid[ROW][COL + 1] === undefined) &&
-                        (this.grid[ROW][COL - 1] === 0 || this.grid[ROW][COL - 1] === undefined)) {
+                        this.isLeftSpotClear(ROW, COL) &&
+                        this.isRightSpotClear(ROW, COL)) {
                       continue
                     }
 
-                    // indicates we are in the last row without a letter above
-                    if (this.grid[ROW + 1] === undefined && this.grid[ROW - 1][COL] === 0) {
-                      continue
-                    }
+                    const nextSpot = this.grid[ROW][COL + 1] ? [ROW, COL + 1] : undefined
+                    const prevSpot = this.grid[ROW][COL - 1] ? [ROW, COL - 1] : undefined
 
-                    // indicates we are in the first row without a letter below
-                    if (this.grid[ROW - 1] === undefined && this.grid[ROW + 1][COL] === 0) {
-                      continue
-                    }
-
-                    // if any of these eval to false, we know that the spot is either filled or adjacent to another letter
-                    if (this.grid[ROW][COL] !== 0 ||
-                        this.grid[ROW + 1][COL] !== 0 ||
-                        this.grid[ROW - 1][COL] !== 0 ||
-                        this.grid[ROW][COL + 1] !== 0) {
-                      // this word doesn't fit at the current letter, so go to the next letter in the placed word
+                    // if we are at the spot to the left of the matching letter
+                    if (JSON.stringify(nextSpot) === JSON.stringify(placedLetterCoordinates)) {
+                      if (this.isBottomSpotClear(ROW, COL) &&
+                          this.isCurrentSpotClear(ROW, COL) &&
+                          this.isLeftSpotClear(ROW, COL) &&
+                          this.isTopSpotClear(ROW, COL)) {
+                        continue
+                      } 
                       continue nextPlacedLetter
                     }
+
+                    // if we are at the spot to the right of the matching letter
+                    if (JSON.stringify(prevSpot) === JSON.stringify(placedLetterCoordinates)) {
+                      if (this.isBottomSpotClear(ROW, COL) &&
+                          this.isCurrentSpotClear(ROW, COL) &&
+                          this.isRightSpotClear(ROW, COL) &&
+                          this.isTopSpotClear(ROW, COL)) {
+                        continue
+                      } 
+                      continue nextPlacedLetter
+                    }
+
+                    if (this.isRightSpotClear(ROW, COL) &&
+                        this.isLeftSpotClear(ROW, COL) &&
+                        this.isCurrentSpotClear(ROW, COL) &&
+                        this.isTopSpotClear(ROW, COL) &&
+                        this.isBottomSpotClear(ROW, COL)) {
+                      continue
+                    }
+
+                    continue nextPlacedLetter
                   }
 
                   // if we make it this far, then we know that the LETTERS have valid coordinates and are ready to be placed on grid
@@ -227,6 +259,44 @@ export default {
       return false
     },
 
+    isCurrentSpotClear (ROW, COL) {
+      return typeof this.grid[ROW, COL] !== 'string'
+    },
+
+    // CHANGE THESE BACK TO OBJECT AFTER TESTING
+    isLeftSpotClear (ROW, COL) {
+      if (typeof this.grid[ROW][COL - 1] !== 'string') {
+        return true
+      }
+      return false
+    },
+
+    isRightSpotClear (ROW, COL) {
+      if (typeof this.grid[ROW][COL + 1] !== 'string') {
+        return true
+      }
+      return false
+    },
+
+    isBottomSpotClear (ROW, COL) {
+      if (this.grid[ROW + 1] === undefined) {
+        return true
+      }
+      if (typeof this.grid[ROW + 1][COL] !== 'string') {
+        return true
+      }
+      return false
+    },
+
+    isTopSpotClear (ROW, COL) {
+      if (this.grid[ROW - 1] === undefined) {
+        return true
+      }
+      if (typeof this.grid[ROW - 1][COL] !== 'string') {
+        return true
+      }
+      return false
+    },
     /**
      * @desc adds the letters to the grid and adds them to the placed words array
      * @param {array} LETTER_COORDINATES - letter coordinates for unplaced word
