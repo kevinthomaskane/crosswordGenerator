@@ -1,4 +1,4 @@
-const letterCombos = [
+export const combosAll = [
   {
     letters: 'eagxdn',
     words: ['aged', 'dean', 'and', 'end', 'age', 'den', 'axe'],
@@ -5513,5 +5513,3 @@ const letterCombos = [
     placedWords: 14,
   },
 ]
-
-module.exports = { letterCombos }
