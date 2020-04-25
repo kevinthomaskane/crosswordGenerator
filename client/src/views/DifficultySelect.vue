@@ -1,20 +1,16 @@
 <template>
-  <div class="welcome-view-wrapper">
-    <h1 class="welcome-header">Welcome to Sea Scrambler!</h1>
+  <div class="difficulty-view-wrapper">
+    <h1 class="difficulty-header">Select your difficulty</h1>
     <div class="options-wrapper">
       <div
-        :class="['option primary', {active: activeOption !== 'demo'}]"
-        @click="handleOptionClick()"
-      >
-        Let's get started
-      </div>
-      <div 
-        :class="['option', {active: activeOption === 'demo'}]"
-        @mouseover="handleOptionHighlight('demo')"
+        v-for="(difficulty, i) of DIFFICULTIES"
+        :key="i"
+        :class="['option primary', {active: activeOption === difficulty}]"
+        @click="handleOptionClick(difficulty)"
+        @mouseover="handleOptionHighlight(difficulty)"
         @mouseleave="handleOptionHighlight()"
-        @click="handleOptionClick('demo')"
       >
-        How to play
+        {{ difficulty }}
       </div>
     </div>
   </div>
@@ -22,19 +18,18 @@
 
 <script>
 /* eslint-disable */
+import { DIFFICULTIES } from './../constants'
+
 export default {
   name: 'Welcome',
   data: () => ({
-    activeOption: ''
+    DIFFICULTIES,
+    activeOption: 'random'
   }),
   methods: {
-    handleOptionClick (view) {
-      if (view === 'demo') {
-        this.$store.dispatch('setCurrentView', 'demo')
-        return
-      }
-
-      this.$store.dispatch('setCurrentView', 'difficultySelect')
+    handleOptionClick (difficulty) {
+      this.$store.dispatch('setDifficulty', difficulty)
+      this.$store.dispatch('setCurrentView', 'gameActive')
     },
     handleOptionHighlight (option='') {
       this.activeOption = option
@@ -46,21 +41,20 @@ export default {
 <style lang="scss">
 @import "./../variables";
 
-.welcome-view-wrapper {
+.difficulty-view-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: $color-opaquewhite;
+  background: rgba(255,255,255,.8);
   border-radius: 10px;
   padding: 2rem;
-  .welcome-header {
+  .difficulty-header {
     font-size: 2rem;
     font-family: $font-family-headings;
     margin: 0;
     margin-bottom: 1.5rem;
     text-align: center;
-    white-space: nowrap;
   }
   .options-wrapper {
     .option {
@@ -75,18 +69,19 @@ export default {
       cursor: pointer;
       box-shadow: 0 10px 11px 3px $color-lightblue;
       text-align: center;
+      margin-bottom: 1rem;
       &.active {
         background: $color-darkblue;
         color: white;
-      }
-      &.primary {
-        margin-bottom: 1rem;
       }
       &:hover {
         background: $color-darkblue;
         color: white;
         box-shadow: 0 10px 11px 3px rgba(84, 187, 215, 0.68);
         transform: translateY(-1px);
+      }
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }

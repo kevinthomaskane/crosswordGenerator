@@ -1,4 +1,4 @@
-export const combosAll = [
+export const combos = [
   {
     letters: 'eagxdn',
     words: ['aged', 'dean', 'and', 'end', 'age', 'den', 'axe'],

@@ -1,4 +1,4 @@
-export const combosHard = [
+export const combos = [
   {
     letters: 'iartpl',
     words: [

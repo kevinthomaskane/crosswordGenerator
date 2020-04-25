@@ -1,4 +1,4 @@
-export const combosEasy = [
+export const combos = [
   {
     letters: 'eeqwrl',
     words: ['were', 'reel', 'lee', 'wee', 'eel'],
