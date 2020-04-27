@@ -20,6 +20,9 @@
 /* eslint-disable */
 import { DIFFICULTIES } from './../constants'
 
+/**
+ * Displays difficulties for user-selection
+ */
 export default {
   name: 'Welcome',
   data: () => ({
@@ -27,10 +30,19 @@ export default {
     activeOption: 'random'
   }),
   methods: {
+    /**
+     * Sets difficulty level to the store and then updates the game-view
+     * @param {string} difficulty - the user-selected difficulty
+     */
     handleOptionClick (difficulty) {
       this.$store.dispatch('setDifficulty', difficulty)
       this.$store.dispatch('setCurrentView', 'gameActive')
     },
+
+    /**
+     * Highlights the appropriate option
+     * @param {string} option - the name of the option (difficulty)
+     */
     handleOptionHighlight (option='') {
       this.activeOption = option
     }

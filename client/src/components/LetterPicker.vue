@@ -1,0 +1,104 @@
+<template>
+  <div class="letter-picker-wrapper">
+    <div class="letter-picker-container">
+      <div
+        class="letter"
+        v-for="(letter, i) of letters.split('')"
+        :key="i"
+        @mousedown="handleMouseDown"
+        @mouseup="handleMouseUp"
+        @click="handleClick(letter)"
+      >
+        {{ letter }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
+/**
+ * The letters for puzzle displayed for user-selection
+ */
+export default {
+  name: 'LetterPicker',
+  props: {
+    /**
+     * The current letters concatenated together as a string.
+     */
+    letters: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    /**
+     * Add box-shadow to button on mousedown.
+     */
+    handleMouseDown (e) {
+      e.target.classList.add('active')
+    },
+
+    /**
+     * Remove box-shadow from button on mousedown.
+     */
+    handleMouseUp (e) {
+      e.target.classList.remove('active')
+    },
+
+    /**
+     * Emits the selected letter to GameActive
+     * @param {string} letter - the user-selected letter
+     */
+    handleClick (letter) {
+      this.$emit('update:selectedLetters', letter)
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+@import "./../variables";
+
+.letter-picker-wrapper {
+  display: flex;
+  justify-content: center;
+  .letter-picker-container {
+    padding: 1rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    background: $color-opaquewhite;
+    border-radius: 33px;
+    margin: 0 auto;
+    display: inline-flex;
+  }
+  .letter {
+    display: flex;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: $color-darkblue;
+    line-height: 4rem;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    font-size: 2rem;
+    font-family: $font-family-default;
+    color: white;
+    text-shadow: 0 1px 1px black;
+    box-shadow: 0 2px 4px black;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      background: lighten($color-darkblue, 5%);
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    &.active {
+      box-shadow: none;
+    }
+  }
+}
+</style>

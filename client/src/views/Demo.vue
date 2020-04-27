@@ -5,6 +5,10 @@
 
 <script>
 /* eslint-disable */
+
+/**
+ * Displays demo view
+ */
 export default {
   name: 'Demo',
   data: () => ({}),

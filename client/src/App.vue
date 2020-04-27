@@ -10,23 +10,20 @@
     <game-active
       v-if="currentView === 'gameActive'"
     />
-    <!-- <div class="crossword-wrapper" v-for="(letterCombo, i) of LETTERCOMBOS" :key="i"> -->
-    <!-- <crossword -->
-    <!-- :letterCombo="letterCombo" -->
-    <!-- /> -->
-    <!-- </div> -->
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-/* import { letterCombos as LETTERCOMBOS } from './letterCombos' */
 import { mapGetters } from 'vuex'
 import Crossword from './components/Crossword'
 import Welcome from './views/Welcome'
 import DifficultySelect from './views/DifficultySelect'
 import GameActive from './views/GameActive'
 
+/**
+ * Most-parent component that displays views based on user progress through game
+ */
 export default {
   name: 'App',
   components: {
