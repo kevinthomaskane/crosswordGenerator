@@ -1,4 +1,4 @@
-export const combos = [
+const letterCombos = [
   {
     letters: 'eagxdn',
     grid: [
@@ -5447,4 +5447,6 @@ export const combos = [
       'lid',
     ],
   },
-]
+];
+
+module.exports = letterCombos

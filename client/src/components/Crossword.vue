@@ -3,7 +3,7 @@
     <div
       class="crossword-container"
       :style="{
-        transform: `translate(-50%, -50%) scale(${scale})`
+        transform: `translate(-50%, -50%) scale(${scale > -1 ? scale : 1})`
       }"
     >
       <div
@@ -16,10 +16,10 @@
           v-for="(col, j) of row"
           :key="j"
         >
-          {{ col ? col.letter : '' }}
+          {{ col && isPartOfPlacedWords(col.partOfWords) ? col.letter : '' }}
         </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -38,6 +38,13 @@ export default {
     letterCombo: {
       type: Object,
       required: true
+    },
+    /**
+     * Words that user has guessed and placed in puzzle
+     */
+    placedWords: {
+      type: Array,
+      required: true
     }
   },
   data: () => ({
@@ -46,7 +53,7 @@ export default {
     squareHeight: 32
   }),
   mounted() {
-    this.returnCrosswordScale()
+    this.$nextTick(this.returnCrosswordScale())
   },
   methods: {
     /**
@@ -65,7 +72,26 @@ export default {
         return
       }
 
-      this.scale = crosswordWrapperHeight / heightOfCrossword
+      // ensure that puzzle fits within wrapper by scaling it an additional .05
+      this.scale = (crosswordWrapperHeight / heightOfCrossword) - .05
+    },
+
+    /**
+     * Checks whether the letter is part of any of the placedWords
+     * @param {array} inTheseWords - array of words that the current letter appears in
+     */
+    isPartOfPlacedWords (inTheseWords) {
+      if (this.placedWords.length === 0) {
+        return false
+      }
+
+      for (let i = 0; i < inTheseWords.length; i++) {
+        // if the words exist in both arrays, we know that the letter is being used
+        if (this.placedWords.indexOf(inTheseWords[i]) > -1) {
+          return true
+        }
+      }
+      return false
     }
   }
 }
@@ -75,10 +101,10 @@ export default {
 @import './../variables.scss';
 
 .crossword-wrapper {
-  width: 40%;
-  padding-bottom: 40%;
+  width: 50%;
+  height: 60%;
   margin: 0 auto;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   position: relative;
   .crossword-container {
     position: absolute;

@@ -5514,4 +5514,4 @@ const letterCombos = [
   },
 ]
 
-module.exports = { letterCombos }
+module.exports = letterCombos

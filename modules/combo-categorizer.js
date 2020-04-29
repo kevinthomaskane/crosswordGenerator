@@ -1,4 +1,4 @@
-const { letterCombos } = require('./letterCombos');
+const letterCombos = require('./letter-combos/letter-combos-with-grid');
 const fs = require('fs');
 
 const categories = {
@@ -9,12 +9,12 @@ const categories = {
 }
 
 for (let i = 0; i < letterCombos.length; i++) {
-  if (letterCombos[i].placedWords <= 6) {
+  if (letterCombos[i].placedWords.length <= 6) {
     categories.easy.push(letterCombos[i])
     continue
   }
 
-  if (letterCombos[i].placedWords <= 12) {
+  if (letterCombos[i].placedWords.length <= 12) {
     categories.medium.push(letterCombos[i])
     continue
   }

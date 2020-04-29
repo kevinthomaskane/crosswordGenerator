@@ -8,6 +8,9 @@ const PORT = 3000;
 
 const letterCombos = []
 
+const Crossword = require('./Crossword');
+console.log(Crossword)
+
 app.use(
   bodyParser.urlencoded({
     extended: true

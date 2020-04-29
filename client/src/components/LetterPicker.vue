@@ -61,6 +61,11 @@ export default {
 @import "./../variables";
 
 .letter-picker-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
   display: flex;
   justify-content: center;
   .letter-picker-container {

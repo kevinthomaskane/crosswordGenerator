@@ -2,18 +2,24 @@
   <div class="game-active-view-wrapper" v-if="currentIndex > -1">
     <crossword
       :letterCombo="combos[currentIndex]"
+      :placedWords="placedWords"
     />
 
-    <status-box
-      :status="status"
-    />
-    <active-letters
-      :letters="activeLetters"
-    />
-    <letter-picker
-      :letters="combos[currentIndex].letters"
-      @update:selectedLetters="handleNewLetterSelection"
-    />
+    <div class="status-letters-picker-wrapper">
+      <status-box
+        :status="status"
+      />
+      <active-letters
+        :letters="activeLetters"
+        @update:deleteLetter="handleDeleteLetter"
+        @submit:word="handleSubmitWord"
+        :status="status"
+      />
+      <letter-picker
+        :letters="combos[currentIndex].letters"
+        @update:selectedLetters="handleNewLetterSelection"
+      />
+    </div>
   </div>
 </template>
 
@@ -41,7 +47,10 @@ export default {
     combos: [],
     currentIndex: -1,
     activeLetters: [],
-    status: ''
+    status: null,
+    maxWordLength: -1,
+    placedWords: [],
+    statusTimeoutMS: 1000
   }),
 
   /**
@@ -52,6 +61,7 @@ export default {
       .then(({ combos }) => {
         this.combos = combos
         this.currentIndex = 0
+        this.maxWordLength = this.combos[this.currentIndex].placedWords[0].length
       })
   },
   methods: {
@@ -60,16 +70,63 @@ export default {
      * @param {string} letter - the user-selected letter
      */
     handleNewLetterSelection (letter) {
-      const maxWordLength = this.combos[this.currentIndex].words[0].length
-
-      if (this.activeLetters.length < maxWordLength) {
+      if (this.activeLetters.length < this.maxWordLength) {
         this.activeLetters = [...this.activeLetters, letter] 
         return
       }
 
       this.status = STATUSES['TOO_MANY_LETTERS']
+      this.clearStatus()
+    },
 
-    }
+    /**
+     * Receives update from ActiveLetters and removes last letter from activeLetters array.  Updates status accordingly
+     */
+    handleDeleteLetter () {
+      this.activeLetters = this.activeLetters.slice(0, this.activeLetters.length - 1)
+
+      if (this.activeLetters.length <= this.maxWordLength) {
+        this.status = null
+      }
+    },
+
+    /**
+     * Checks if word exists in puzzle or has been placed already, then clears board
+     */
+    handleSubmitWord () {
+      const submittedWord = this.activeLetters.join('')
+
+      // check if word has already been placed
+      if (this.placedWords.indexOf(submittedWord) > -1) {
+        this.status = STATUSES['ALREADY_USED']
+      }
+      // check if word exists and add it to placedWords
+      else if (this.combos[this.currentIndex].placedWords.indexOf(submittedWord) > -1) {
+        this.placedWords = [...this.placedWords, submittedWord]
+        this.status = STATUSES['CORRECT_GUESS']
+      }
+      // must be incorrect
+      else {
+        this.status = STATUSES['INCORRECT_GUESS']
+      }
+
+      this.clearLetters()
+      this.clearStatus()
+    },
+
+    /**
+     * Status message should flash for 1s and then be removed
+     */
+    clearStatus () {
+      setTimeout(() => this.status = null, this.statusTimeoutMS)
+    },
+
+    /**
+     * Letters should clear at same time as status message
+     */
+    clearLetters () {
+      setTimeout(() => this.activeLetters = [], this.statusTimeoutMS)
+    },
   },
   computed: {
     ...mapGetters([
@@ -87,6 +144,11 @@ export default {
   height: 100%;
   position: relative;
   z-index: 1;
-  padding-top: 3rem;
+  padding: 2rem 0;
+  /* crossword is 60% height of container with a 2rem margin-bottom */
+  .status-letters-picker-wrapper {
+    height: calc(40% - 2rem);
+    position: relative;
+  }
 }
 </style>
