@@ -49,6 +49,7 @@ export default {
   height: 90vh;
   width: calc(90vh * (2081 / 1611));
   margin: 0 auto;
+  overflow: hidden;
   * {
     box-sizing: border-box;
   }

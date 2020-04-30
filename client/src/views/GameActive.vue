@@ -1,9 +1,13 @@
 <template>
-  <div class="game-active-view-wrapper" v-if="currentIndex > -1">
+  <div class="game-active-view-wrapper" v-if="currentCrosswordIndex > -1">
+    <menu-bar />
     <crossword
-      :letterCombo="combos[currentIndex]"
-      :placedWords="placedWords"
+      :letterCombo="crosswords[currentCrosswordIndex]"
     />
+
+    <div v-if="isLevelComplete" class="level-complete">
+      complete
+    </div>
 
     <div class="status-letters-picker-wrapper">
       <status-box
@@ -16,7 +20,7 @@
         :status="status"
       />
       <letter-picker
-        :letters="combos[currentIndex].letters"
+        :letters="crosswords[currentCrosswordIndex].letters"
         @update:selectedLetters="handleNewLetterSelection"
       />
     </div>
@@ -31,6 +35,7 @@ import Crossword from './../components/Crossword'
 import LetterPicker from './../components/LetterPicker'
 import ActiveLetters from './../components/ActiveLetters'
 import StatusBox from './../components/StatusBox'
+import MenuBar from './../components/MenuBar'
 
 /**
  * View when crossword puzzle is active
@@ -41,15 +46,13 @@ export default {
     'crossword': Crossword,
     'letter-picker': LetterPicker,
     'active-letters': ActiveLetters,
-    'status-box': StatusBox
+    'status-box': StatusBox,
+    'menu-bar': MenuBar
   },
   data: () => ({
-    combos: [],
-    currentIndex: -1,
     activeLetters: [],
     status: null,
     maxWordLength: -1,
-    placedWords: [],
     statusTimeoutMS: 1000
   }),
 
@@ -59,9 +62,9 @@ export default {
   mounted () {
     import(`./../letter-combos/combos-${this.difficulty === 'random' ? 'all' : this.difficulty}`)
       .then(({ combos }) => {
-        this.combos = combos
-        this.currentIndex = 0
-        this.maxWordLength = this.combos[this.currentIndex].placedWords[0].length
+        this.$store.dispatch('setCrosswords', combos)
+        this.$store.dispatch('setCurrentCrosswordIndex', 0)
+        this.maxWordLength = this.crosswords[this.currentCrosswordIndex].placedWords[0].length
       })
   },
   methods: {
@@ -101,8 +104,8 @@ export default {
         this.status = STATUSES['ALREADY_USED']
       }
       // check if word exists and add it to placedWords
-      else if (this.combos[this.currentIndex].placedWords.indexOf(submittedWord) > -1) {
-        this.placedWords = [...this.placedWords, submittedWord]
+      else if (this.crosswords[this.currentCrosswordIndex].placedWords.indexOf(submittedWord) > -1) {
+        this.$store.dispatch('setPlacedWords', [...this.placedWords, submittedWord])
         this.status = STATUSES['CORRECT_GUESS']
       }
       // must be incorrect
@@ -128,9 +131,22 @@ export default {
       setTimeout(() => this.activeLetters = [], this.statusTimeoutMS)
     },
   },
+  watch: {
+    /**
+     * When next crossword is displayed, reset all values
+     */
+    currentCrosswordIndex () {
+      this.activeLetters = []
+      this.maxWordLength = this.crosswords[this.currentCrosswordIndex].placedWords[0].length
+    }
+  },
   computed: {
     ...mapGetters([
-      'difficulty'
+      'difficulty',
+      'currentCrosswordIndex',
+      'crosswords',
+      'isLevelComplete',
+      'placedWords'
     ])
   }
 }

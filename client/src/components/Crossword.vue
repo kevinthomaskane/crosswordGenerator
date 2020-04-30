@@ -1,18 +1,24 @@
 <template>
-  <div class="crossword-wrapper" :ref="'crossword-wrapper'">
+  <div class="crossword-wrapper" ref="crossword-wrapper">
     <div
       class="crossword-container"
-      :style="{
-        transform: `translate(-50%, -50%) scale(${scale > -1 ? scale : 1})`
-      }"
+      ref="crossword-container"
     >
       <div
         class="row"
-        v-for="(row, i) of letterCombo.grid"
+        v-for="(row, i) of crosswords[currentCrosswordIndex].grid"
         :key="i"
       >
         <div
-          :class="['space', { isUsed: col }]"
+          :class="[
+            'space',
+            { isUsed: col },
+            { guessed: col && isPartOfPlacedWords(col.partOfWords) && !isPartOfCurrentWord(col.partOfWords)}
+          ]"
+          :style="{
+            'animation': `${col && isPartOfCurrentWord(col.partOfWords) ? 'expand .2s forwards' : ''}`,
+            'animation-delay': `${col && isPartOfCurrentWord(col.partOfWords) ? returnAnimationDelay(col.letter) : ''}`
+          }"
           v-for="(col, j) of row"
           :key="j"
         >
@@ -26,33 +32,24 @@
 <script>
 /* eslint-disable */
 
+import { mapGetters } from 'vuex'
 /**
  * Displays the puzzle for the current letter-combo
  */
 export default {
   name: 'Crossword',
-  props: {
-    /**
-     * The current letter-combo object, with grid as a key
-     */
-    letterCombo: {
-      type: Object,
-      required: true
-    },
-    /**
-     * Words that user has guessed and placed in puzzle
-     */
-    placedWords: {
-      type: Array,
-      required: true
-    }
-  },
   data: () => ({
-    scale: -1,
     squareWidth: 32,
-    squareHeight: 32
+    squareHeight: 32,
+    animationDelayIncrement: .2
   }),
-  mounted() {
+  
+  /**
+   * Used to keep track of letter index for determining animation delay.  Needed this to be static to avoid infinite re-rendering as it gets updated
+   */
+  indexOfLetter: 0,
+
+  mounted () {
     this.$nextTick(this.returnCrosswordScale())
   },
   methods: {
@@ -64,16 +61,16 @@ export default {
       const crosswordWrapperHeight = this.$refs['crossword-wrapper'].offsetHeight
 
       // default size of crossword square is 2rem x 2rem
-      const widthOfCrossword = this.letterCombo.grid[0].length * this.squareWidth
-      const heightOfCrossword = this.letterCombo.grid.length * this.squareHeight
+      const widthOfCrossword = this.crosswords[this.currentCrosswordIndex].grid[0].length * this.squareWidth
+      const heightOfCrossword = this.crosswords[this.currentCrosswordIndex].grid.length * this.squareHeight
 
       if (widthOfCrossword > heightOfCrossword) {
-        this.scale = crosswordWrapperWidth / widthOfCrossword
+        this.$refs['crossword-container'].style.transform = `translate(-50%, -50%) scale(${(crosswordWrapperWidth / widthOfCrossword) - .05})`
         return
       }
 
       // ensure that puzzle fits within wrapper by scaling it an additional .05
-      this.scale = (crosswordWrapperHeight / heightOfCrossword) - .05
+      this.$refs['crossword-container'].style.transform = `translate(-50%, -50%) scale(${(crosswordWrapperHeight / heightOfCrossword) - .05})`
     },
 
     /**
@@ -92,13 +89,87 @@ export default {
         }
       }
       return false
+    },
+
+    /**
+     * Checks whether the letter is part of the most recently guessed word
+     * @param {array} inTheseWords - array of words that the current letter appears in
+     * @return {boolean} is the letter part of the current word?
+     */
+    isPartOfCurrentWord (inTheseWords) {
+      const currentWord = this.placedWords[this.placedWords.length - 1]
+
+      if (inTheseWords.indexOf(currentWord) > -1) {
+        return true
+      }
+
+      return false
+    },
+
+    /**
+     * Based on the letter's position in the most recently guessed word, we return an animation delay.  Keep track of current position within the word with indexOfLetter.
+     * @param {string} letter - letter that is being rendered
+     * @return {string} the animation delay represented as a string
+     */
+    returnAnimationDelay (letter) {
+      const i = this.$options.indexOfLetter 
+
+      const currentWord = this.placedWords[this.placedWords.length - 1]
+
+      // have we reached the end of the word?
+      if (this.$options.indexOfLetter === currentWord.length - 1) {
+        // if so, reset the counter to 0
+        this.$options.indexOfLetter = 0
+      } else {
+        // otherwise increment by 1
+        this.$options.indexOfLetter += 1
+      }
+
+      return `${i * this.animationDelayIncrement}s`
     }
+  },
+  watch: {
+    /**
+     * If the crossword changes, we need to update the scale
+     */
+    currentCrosswordIndex () {
+      this.$nextTick(this.returnCrosswordScale())
+    },
+
+    /**
+     * If the crosswords change but the index was still at 0, we need to update the scale
+     */
+    crosswords () {
+      this.$nextTick(this.returnCrosswordScale())
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'currentCrosswordIndex',
+      'crosswords',
+      'placedWords'
+    ])
   }
 }
 </script>
 
 <style lang="scss">
 @import './../variables.scss';
+
+@keyframes expand {
+  0% {
+    transform: scale(1);
+    color: transparent;
+  }
+  50% {
+    transform: scale(1.2);
+    color: black;
+  }
+  100% {
+    transform: scale(1);
+    color: black;
+  }
+}
 
 .crossword-wrapper {
   width: 50%;
@@ -124,10 +195,14 @@ export default {
         margin: 1px;
         line-height: 2rem;
         &.isUsed {
-          color: black;
+          color: transparent;
           font-weight: bold;
           background: $color-opaquewhite;
           border-radius: 4px;
+        }
+        &.guessed {
+          color: black;
+          animation: expand .2s linear;
         }
       }
     }
