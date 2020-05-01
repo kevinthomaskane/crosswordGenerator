@@ -75,12 +75,10 @@ export default {
       padding: 1rem 1.5rem;
       color: black;
       font-family: $font-family-default;
-      border: solid 3px $color-darkblue;
       border-radius: 33px;
       background: white;
       transition: all .2s ease-in-out;
       cursor: pointer;
-      box-shadow: 0 10px 11px 3px $color-lightblue;
       text-align: center;
       margin-bottom: 1rem;
       &.active {
@@ -90,8 +88,6 @@ export default {
       &:hover {
         background: $color-darkblue;
         color: white;
-        box-shadow: 0 10px 11px 3px rgba(84, 187, 215, 0.68);
-        transform: translateY(-1px);
       }
       &:last-child {
         margin-bottom: 0;

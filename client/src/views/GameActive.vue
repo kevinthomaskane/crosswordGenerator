@@ -1,6 +1,7 @@
 <template>
   <div class="game-active-view-wrapper" v-if="currentCrosswordIndex > -1">
     <menu-bar />
+    <progress-bar />
     <crossword
       :letterCombo="crosswords[currentCrosswordIndex]"
     />
@@ -39,6 +40,7 @@ import ActiveLetters from './../components/ActiveLetters'
 import StatusBox from './../components/StatusBox'
 import MenuBar from './../components/MenuBar'
 import CrosswordComplete from './../components/CrosswordComplete'
+import ProgressBar from './../components/ProgressBar'
 
 /**
  * View when crossword puzzle is active
@@ -51,7 +53,8 @@ export default {
     'active-letters': ActiveLetters,
     'status-box': StatusBox,
     'menu-bar': MenuBar,
-    'crossword-complete': CrosswordComplete
+    'crossword-complete': CrosswordComplete,
+    'progress-bar': ProgressBar
   },
   data: () => ({
     activeLetters: [],

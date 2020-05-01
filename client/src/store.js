@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     currentView: 'welcome', /* welcome, demo, difficultySelect, gameActive */
     difficulty: '', /* random, easy, medium, hard */
+    gameContainerWidth: -1,
+    gameContainerHeight: -1,
     currentCrosswordIndex: -1 , /* index of current puzzle within difficulty group */
     crosswords: [], /* array of crosswords for specified difficulty */
     isLevelComplete: false, /* has user reached last puzzle for selected difficulty */
@@ -17,6 +19,8 @@ export default new Vuex.Store({
   getters: {
     currentView: state => state.currentView,
     difficulty: state => state.difficulty,
+    gameContainerWidth: state => state.gameContainerWidth,
+    gameContainerHeight: state => state.gameContainerHeight,
     currentCrosswordIndex: state => state.currentCrosswordIndex,
     crosswords: state => state.crosswords,
     numCrosswords: state => state.crosswords.length,
@@ -30,6 +34,10 @@ export default new Vuex.Store({
     },
     setDifficulty (state, difficulty) {
       state.difficulty = difficulty
+    },
+    setGameContainerDimensions (state, { width, height }) {
+      state.gameContainerWidth = width
+      state.gameContainerHeight = height
     },
     setCurrentCrosswordIndex (state, index) {
       state.placedWords = []
@@ -57,5 +65,6 @@ export default new Vuex.Store({
     setLevelComplete ({commit}) {commit('setLevelComplete')},
     setPlacedWords ({commit}, payload) {commit('setPlacedWords', payload)},
     setCrosswordComplete ({commit}) {commit('setCrosswordComplete')},
+    setGameContainerDimensions ({commit}, payload) {commit('setGameContainerDimensions', payload)},
   }
 })

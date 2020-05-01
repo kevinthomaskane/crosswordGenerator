@@ -1,5 +1,5 @@
 <template>
-  <div class="game-container">
+  <div ref="game-container" class="game-container">
     <img class="background-image" alt="background" src="./../public/background.png"/>
     <welcome
       v-if="currentView === 'welcome'"
@@ -32,7 +32,26 @@ export default {
     'difficulty-select': DifficultySelect,
     'game-active': GameActive,
   },
-  data: () => ({}),
+  data: () => ({
+    paddingTop: 32,
+    paddingBottom: 32
+  }),
+  mounted () {
+    this.$nextTick(this.getGameContainerDimensions)
+  },
+  methods: {
+    /**
+     * Get the dimensions of the game container so that the crossword can scale appropriately
+     */
+    getGameContainerDimensions () {
+      const container = this.$refs['game-container']
+
+      this.$store.dispatch('setGameContainerDimensions', {
+        width: container.offsetWidth,
+        height: container.offsetHeight - this.paddingTop - this.paddingBottom
+      })
+    },
+  },
   computed: {
     ...mapGetters([
       'currentView'

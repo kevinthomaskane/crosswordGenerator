@@ -1,8 +1,12 @@
 <template>
   <div class="crossword-wrapper" ref="crossword-wrapper">
     <div
+      v-if="crosswords"
       class="crossword-container"
       ref="crossword-container"
+      :style="{
+        transform: `${returnCrosswordScale()}`
+      }"
     >
       <div
         class="row"
@@ -10,6 +14,7 @@
         :key="i"
       >
         <div
+          :ref="`${i}-${j}`"
           :class="[
             'space',
             { isUsed: col },
@@ -19,7 +24,6 @@
             animation: `${col && isPartOfCurrentWord(col.partOfWords) ? returnAnimation(col.letter, i, j) : ''}`,
             color: `${placedWords.length === 0 ? 'transparent' : ''}`
           }"
-          :ref="`${i}-${j}`"
           v-for="(col, j) of row"
           :key="j"
         >
@@ -42,36 +46,41 @@ export default {
   data: () => ({
     squareWidth: 32,
     squareHeight: 32,
-    animationDelayIncrement: .2
+    animationDelayIncrement: .2,
+    crosswordWidthOfContainer: .5,
+    crosswordHeightOfContainer: .6
   }),
   
   /**
    * Used to keep track of letter index for determining animation delay.  Needed this to be static to avoid infinite re-rendering as it gets updated
    */
   indexOfLetter: 0,
-
-  mounted () {
-    this.$nextTick(this.returnCrosswordScale())
-  },
   methods: {
     /**
-     * Checks for size of rendered crossword. If larger than containing wrapper, determines if size is most excessive on width or height, then applies a scale() to the puzzle to make it fit more appropriately
+     * Checks for size of to-be-rendered crossword. If larger than containing wrapper, determines if size is most excessive on width or height, then applies a scale() to the puzzle to make it fit more appropriately
+     * @return {string} transform property string
      */
     returnCrosswordScale () {
-      const crosswordWrapperWidth = this.$refs['crossword-wrapper'].offsetWidth
-      const crosswordWrapperHeight = this.$refs['crossword-wrapper'].offsetHeight
+      // Add 2px for margin top/bottom and left/right
+      const widthOfCrossword = this.crosswords[this.currentCrosswordIndex].grid[0].length * (this.squareWidth + 2)
+      const heightOfCrossword = this.crosswords[this.currentCrosswordIndex].grid.length * (this.squareHeight + 2)
 
-      // default size of crossword square is 2rem x 2rem
-      const widthOfCrossword = this.crosswords[this.currentCrosswordIndex].grid[0].length * this.squareWidth
-      const heightOfCrossword = this.crosswords[this.currentCrosswordIndex].grid.length * this.squareHeight
+      // Get the dimensions of the wrapper based on percentage of gameContainer
+      const containerWidth = this.gameContainerWidth * this.crosswordWidthOfContainer
+      const containerHeight = this.gameContainerHeight * this.crosswordHeightOfContainer
 
-      if (widthOfCrossword > heightOfCrossword) {
-        this.$refs['crossword-container'].style.transform = `translate(-50%, -50%) scale(${(crosswordWrapperWidth / widthOfCrossword) - .05})`
-        return
+      // Which dimension is larger, i.e. the dimension that needs to get scaled
+      const widthDifference = widthOfCrossword - containerWidth
+      const heightDifference = heightOfCrossword - containerHeight
+
+      let scale 
+      if (widthDifference > heightDifference) {
+        scale = containerWidth / widthOfCrossword
+        return `translate(-50%, -50%) scale(${scale})`
       }
 
-      // ensure that puzzle fits within wrapper by scaling it an additional .05
-      this.$refs['crossword-container'].style.transform = `translate(-50%, -50%) scale(${(crosswordWrapperHeight / heightOfCrossword) - .05})`
+      scale = containerHeight / heightOfCrossword
+      return `translate(-50%, -50%) scale(${scale})`
     },
 
     /**
@@ -115,7 +124,8 @@ export default {
      * @return {string} the animation represented as a string
      */
     returnAnimation (letter, row, col) {
-      console.log(this.$options.indexOfLetter, letter)
+      if (Object.keys(this.$refs).length === 0) return
+
       const element = this.$refs[row + '-' + col][0]
 
       const i = this.$options.indexOfLetter 
@@ -133,6 +143,8 @@ export default {
 
       // if this letter has already been placed, it will have an animation or class of 'guessed'. We want to override the animation if it exists, or add an animation if it has already been guessed
       if (element.style.animation || element.classList.contains('guessed')) {
+
+        // since the default color for a letter is transparent, and removing the animation will cause it to revert to its default, we need to set its color to black
         element.style.color = 'black'
         return `.2s forwards ${i * this.animationDelayIncrement}s expandNoTransparency`
       }
@@ -140,26 +152,13 @@ export default {
       return `.2s forwards ${i * this.animationDelayIncrement}s expand`
     }
   },
-  watch: {
-    /**
-     * If the crossword changes, we need to update the scale
-     */
-    currentCrosswordIndex () {
-      this.$nextTick(this.returnCrosswordScale())
-    },
-
-    /**
-     * If the crosswords change but the index was still at 0, we need to update the scale
-     */
-    crosswords () {
-      this.$nextTick(this.returnCrosswordScale())
-    }
-  },
   computed: {
     ...mapGetters([
       'currentCrosswordIndex',
       'crosswords',
-      'placedWords'
+      'placedWords',
+      'gameContainerHeight',
+      'gameContainerWidth'
     ])
   }
 }
