@@ -9,7 +9,9 @@
       class="button options"
       @click.stop="handleShowOptions"
     >
-      Options 
+      <settings-icon
+        :rotate="showOptions"
+      />
     </div>
     <div class="options-wrapper">
       <div
@@ -36,9 +38,13 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import SettingsIcon from './../icons/SettingsIcon'
 
 export default {
   name: 'MenuBar',
+  components: {
+    'settings-icon': SettingsIcon
+  },
   data: () => ({
     showOptions: false
   }),
@@ -115,17 +121,17 @@ export default {
     }
   }
   .button {
-    background: $color-opaquewhite;
+    background: $color-transparent-white;
     border-radius: 10px;
     padding: .5rem;
-    color: $color-grey;
+    color: black;
     font-family: $font-family-headings;
     font-weight: bold;
     margin-bottom: .5rem;
-    transition: color .2s ease-in-out;
+    transition: background .2s ease-in-out;
     cursor: pointer;
     &:hover {
-      color: black;
+      background: darken($color-transparent-white, 5%);
     }
     &:last-child {
       margin-bottom: 0;

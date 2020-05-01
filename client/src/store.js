@@ -11,7 +11,8 @@ export default new Vuex.Store({
     currentCrosswordIndex: -1 , /* index of current puzzle within difficulty group */
     crosswords: [], /* array of crosswords for specified difficulty */
     isLevelComplete: false, /* has user reached last puzzle for selected difficulty */
-    placedWords: [] /* words that user has guessed for current puzzle */
+    placedWords: [], /* words that user has guessed for current puzzle */
+    isCrosswordComplete: false /* has user guessed the last word in the crossword */
   },
   getters: {
     currentView: state => state.currentView,
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     crosswords: state => state.crosswords,
     numCrosswords: state => state.crosswords.length,
     isLevelComplete: state => state.isLevelComplete,
-    placedWords: state => state.placedWords
+    placedWords: state => state.placedWords,
+    isCrosswordComplete: state => state.isCrosswordComplete
   },
   mutations: {
     setCurrentView (state, view) {
@@ -42,6 +44,9 @@ export default new Vuex.Store({
     },
     setPlacedWords (state, words) {
       state.placedWords = words
+    },
+    setCrosswordComplete (state) {
+      state.isCrosswordComplete = !state.isCrosswordComplete
     }
   },
   actions: {
@@ -51,5 +56,6 @@ export default new Vuex.Store({
     setCrosswords ({commit}, payload) {commit('setCrosswords', payload)},
     setLevelComplete ({commit}) {commit('setLevelComplete')},
     setPlacedWords ({commit}, payload) {commit('setPlacedWords', payload)},
+    setCrosswordComplete ({commit}) {commit('setCrosswordComplete')},
   }
 })

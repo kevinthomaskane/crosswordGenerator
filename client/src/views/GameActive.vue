@@ -5,6 +5,8 @@
       :letterCombo="crosswords[currentCrosswordIndex]"
     />
 
+    <crossword-complete v-if="isCrosswordComplete" />
+
     <div v-if="isLevelComplete" class="level-complete">
       complete
     </div>
@@ -36,6 +38,7 @@ import LetterPicker from './../components/LetterPicker'
 import ActiveLetters from './../components/ActiveLetters'
 import StatusBox from './../components/StatusBox'
 import MenuBar from './../components/MenuBar'
+import CrosswordComplete from './../components/CrosswordComplete'
 
 /**
  * View when crossword puzzle is active
@@ -47,7 +50,8 @@ export default {
     'letter-picker': LetterPicker,
     'active-letters': ActiveLetters,
     'status-box': StatusBox,
-    'menu-bar': MenuBar
+    'menu-bar': MenuBar,
+    'crossword-complete': CrosswordComplete
   },
   data: () => ({
     activeLetters: [],
@@ -138,6 +142,35 @@ export default {
     currentCrosswordIndex () {
       this.activeLetters = []
       this.maxWordLength = this.crosswords[this.currentCrosswordIndex].placedWords[0].length
+    },
+
+    /**
+     * When all words have been placed, show CrosswordComplete after each letter animation has completed, hence the setTimeout
+     */
+    placedWords (words) {
+      if (words.length === this.crosswords[this.currentCrosswordIndex].placedWords.length) {
+        const lengthOfLastWord = words[words.length - 1].length
+
+        // Each letter has an animation length of 200ms, but add extra to be safe
+        const delay = lengthOfLastWord * 250
+
+        // Are we at the last crossword in the level?
+        if (this.currentCrosswordIndex === this.crosswords.length - 1) {
+          setTimeout(() => this.$store.dispatch('setLevelComplete'), delay)
+          return
+        } 
+
+        setTimeout(() => this.$store.dispatch('setCrosswordComplete'), delay)
+
+        // If there are more crosswords to go, set the current one to complete and go to next
+        setTimeout(() => {
+          // Set this back to false after 1.5s
+          this.$store.dispatch('setCrosswordComplete')
+
+          let i = this.currentCrosswordIndex
+          this.$store.dispatch('setCurrentCrosswordIndex', ++i)
+        }, delay + 1500)
+      }
     }
   },
   computed: {
@@ -146,7 +179,8 @@ export default {
       'currentCrosswordIndex',
       'crosswords',
       'isLevelComplete',
-      'placedWords'
+      'placedWords',
+      'isCrosswordComplete'
     ])
   }
 }

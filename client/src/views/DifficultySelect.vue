@@ -61,6 +61,7 @@ export default {
   background: rgba(255,255,255,.8);
   border-radius: 10px;
   padding: 2rem;
+  box-shadow: $modal-box-shadow;
   .difficulty-header {
     font-size: 2rem;
     font-family: $font-family-headings;

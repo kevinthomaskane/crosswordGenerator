@@ -16,9 +16,10 @@
             { guessed: col && isPartOfPlacedWords(col.partOfWords) && !isPartOfCurrentWord(col.partOfWords)}
           ]"
           :style="{
-            'animation': `${col && isPartOfCurrentWord(col.partOfWords) ? 'expand .2s forwards' : ''}`,
-            'animation-delay': `${col && isPartOfCurrentWord(col.partOfWords) ? returnAnimationDelay(col.letter) : ''}`
+            animation: `${col && isPartOfCurrentWord(col.partOfWords) ? returnAnimation(col.letter, i, j) : ''}`,
+            color: `${placedWords.length === 0 ? 'transparent' : ''}`
           }"
+          :ref="`${i}-${j}`"
           v-for="(col, j) of row"
           :key="j"
         >
@@ -107,11 +108,16 @@ export default {
     },
 
     /**
-     * Based on the letter's position in the most recently guessed word, we return an animation delay.  Keep track of current position within the word with indexOfLetter.
+     * Based on the letter's position in the most recently guessed word, we return an animation.  Keep track of current position within the word with indexOfLetter in order to calculate the animation delay.
      * @param {string} letter - letter that is being rendered
-     * @return {string} the animation delay represented as a string
+     * @param {number} row - row identifier for current space
+     * @param {number} col - column identifier for current space
+     * @return {string} the animation represented as a string
      */
-    returnAnimationDelay (letter) {
+    returnAnimation (letter, row, col) {
+      console.log(this.$options.indexOfLetter, letter)
+      const element = this.$refs[row + '-' + col][0]
+
       const i = this.$options.indexOfLetter 
 
       const currentWord = this.placedWords[this.placedWords.length - 1]
@@ -125,7 +131,13 @@ export default {
         this.$options.indexOfLetter += 1
       }
 
-      return `${i * this.animationDelayIncrement}s`
+      // if this letter has already been placed, it will have an animation or class of 'guessed'. We want to override the animation if it exists, or add an animation if it has already been guessed
+      if (element.style.animation || element.classList.contains('guessed')) {
+        element.style.color = 'black'
+        return `.2s forwards ${i * this.animationDelayIncrement}s expandNoTransparency`
+      }
+
+      return `.2s forwards ${i * this.animationDelayIncrement}s expand`
     }
   },
   watch: {
@@ -171,6 +183,19 @@ export default {
   }
 }
 
+@keyframes expandNoTransparency {
+  0% {
+    transform: scale(1);
+    color: black;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .crossword-wrapper {
   width: 50%;
   height: 60%;
@@ -197,12 +222,11 @@ export default {
         &.isUsed {
           color: transparent;
           font-weight: bold;
-          background: $color-opaquewhite;
+          background: $color-transparent-white;
           border-radius: 4px;
         }
         &.guessed {
           color: black;
-          animation: expand .2s linear;
         }
       }
     }

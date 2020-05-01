@@ -48,12 +48,12 @@ export default {
     transition: opacity .2s ease-in-out;
     &.success {
       opacity: 1;
-      background: $color-opaquegreen;
+      background: $color-lightgreen;
       color: white;
     }
     &.error {
       opacity: 1;
-      background: $color-opaquered;
+      background: $color-transparent-red;
       color: white;
     }
   }

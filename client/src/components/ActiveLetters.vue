@@ -101,7 +101,7 @@ export default {
     margin: 1px;
     line-height: 2rem;
     color: black;
-    background: $color-opaquewhite;
+    background: $color-transparent-white;
     border-radius: 4px;
     font-size: 2rem;
   }
@@ -112,7 +112,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 1px;
-    background: $color-opaquewhite;
+    background: $color-transparent-white;
     border-radius: 4px;
     transition: background .2s ease-in-out;
     cursor: pointer;
@@ -126,7 +126,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 1px;
-    background: $color-opaquewhite;
+    background: $color-transparent-white;
     border-radius: 4px;
     font-family: $font-family-headings;
     padding: 0 .5rem;

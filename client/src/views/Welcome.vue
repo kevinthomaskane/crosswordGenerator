@@ -64,9 +64,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: $color-opaquewhite;
+  background: $color-transparent-white;
   border-radius: 10px;
   padding: 2rem;
+  box-shadow: $modal-box-shadow;
   .welcome-header {
     font-size: 2rem;
     font-family: $font-family-headings;

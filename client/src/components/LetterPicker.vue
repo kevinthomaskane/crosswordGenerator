@@ -73,7 +73,7 @@ export default {
     align-items: center;
     position: relative;
     z-index: 1;
-    background: $color-opaquewhite;
+    background: $color-transparent-white;
     border-radius: 33px;
     margin: 0 auto;
     display: inline-flex;

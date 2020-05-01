@@ -2,9 +2,11 @@ $font-family-headings: 'Acme', sans-seriff;
 $font-family-default: 'Montserrat', sans-seriff;
 
 $color-darkblue: #0998bf;
+$color-transparent-darkblue: rgba(9, 152, 191, 0.82);
 $color-lightblue: rgba(84, 187, 215, 0.28);
-$color-opaquewhite: rgba(255,255,255,.8);
-$color-opaquered: rgba(249,0,0, .5);
-$color-opaquegreen: rgba(0,109,5, .5);
+$color-transparent-white: rgba(255,255,255,.8);
+$color-transparent-red: rgba(249,0,0, .5);
 $color-lightgreen: #00ca09;
 $color-grey: #9e9e9e;
+
+$modal-box-shadow: 0 10px 10px rgba(0,0,0,.5);
