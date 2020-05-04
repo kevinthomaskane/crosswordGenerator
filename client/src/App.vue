@@ -1,5 +1,11 @@
 <template>
   <div ref="game-container" class="game-container">
+    <!-- sounds -->
+    <bubbles />
+    <correct />
+    <incorrect />
+    <!--  -->
+
     <img class="background-image" alt="background" src="./../public/background.png"/>
     <welcome
       v-if="currentView === 'welcome'"
@@ -20,6 +26,9 @@ import Crossword from './components/Crossword'
 import Welcome from './views/Welcome'
 import DifficultySelect from './views/DifficultySelect'
 import GameActive from './views/GameActive'
+import Bubbles from './audio-components/Bubbles'
+import Correct from './audio-components/Correct'
+import Incorrect from './audio-components/Incorrect'
 
 /**
  * Most-parent component that displays views based on user progress through game
@@ -31,6 +40,9 @@ export default {
     'welcome': Welcome,
     'difficulty-select': DifficultySelect,
     'game-active': GameActive,
+    'bubbles': Bubbles,
+    'correct': Correct,
+    'incorrect': Incorrect,
   },
   data: () => ({
     paddingTop: 32,

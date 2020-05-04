@@ -35,6 +35,7 @@ export default {
      * @param {string} difficulty - the user-selected difficulty
      */
     handleOptionClick (difficulty) {
+      this.$store.dispatch('triggerPlayBubbles')
       this.$store.dispatch('setDifficulty', difficulty)
       this.$store.dispatch('setCurrentView', 'gameActive')
     },

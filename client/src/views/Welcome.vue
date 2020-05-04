@@ -22,14 +22,13 @@
 
 <script>
 /* eslint-disable */
-
 /**
  * First view for game that allows user to select 'Demo' or 'Start'
  */
 export default {
   name: 'Welcome',
   data: () => ({
-    activeOption: ''
+    activeOption: '',
   }),
   methods: {
     /**
@@ -37,6 +36,8 @@ export default {
      * @param {string} view - the next view to display
      */
     handleOptionClick (view) {
+      this.$store.dispatch('triggerPlayBubbles')
+
       if (view === 'demo') {
         this.$store.dispatch('setCurrentView', 'demo')
         return

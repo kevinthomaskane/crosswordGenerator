@@ -108,15 +108,18 @@ export default {
 
       // check if word has already been placed
       if (this.placedWords.indexOf(submittedWord) > -1) {
+        this.$store.dispatch('triggerPlayIncorrect')
         this.status = STATUSES['ALREADY_USED']
       }
       // check if word exists and add it to placedWords
       else if (this.crosswords[this.currentCrosswordIndex].placedWords.indexOf(submittedWord) > -1) {
+        this.$store.dispatch('triggerPlayCorrect')
         this.$store.dispatch('setPlacedWords', [...this.placedWords, submittedWord])
         this.status = STATUSES['CORRECT_GUESS']
       }
       // must be incorrect
       else {
+        this.$store.dispatch('triggerPlayIncorrect')
         this.status = STATUSES['INCORRECT_GUESS']
       }
 

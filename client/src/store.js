@@ -14,7 +14,10 @@ export default new Vuex.Store({
     crosswords: [], /* array of crosswords for specified difficulty */
     isLevelComplete: false, /* has user reached last puzzle for selected difficulty */
     placedWords: [], /* words that user has guessed for current puzzle */
-    isCrosswordComplete: false /* has user guessed the last word in the crossword */
+    isCrosswordComplete: false, /* has user guessed the last word in the crossword */
+    bubbleTrigger: false, /* any change causes bubbles mp3 to play */
+    correctTrigger: false, /* any change causes correct mp3 to play */
+    incorrectTrigger: false /* any change causes incorrect mp3 to play */
   },
   getters: {
     currentView: state => state.currentView,
@@ -26,7 +29,10 @@ export default new Vuex.Store({
     numCrosswords: state => state.crosswords.length,
     isLevelComplete: state => state.isLevelComplete,
     placedWords: state => state.placedWords,
-    isCrosswordComplete: state => state.isCrosswordComplete
+    isCrosswordComplete: state => state.isCrosswordComplete,
+    bubbleTrigger: state => state.bubbleTrigger,
+    correctTrigger: state => state.correctTrigger,
+    incorrectTrigger: state => state.incorrectTrigger,
   },
   mutations: {
     setCurrentView (state, view) {
@@ -55,6 +61,15 @@ export default new Vuex.Store({
     },
     setCrosswordComplete (state) {
       state.isCrosswordComplete = !state.isCrosswordComplete
+    },
+    triggerPlayBubbles (state) {
+      state.bubbleTrigger = !state.bubbleTrigger
+    },
+    triggerPlayIncorrect (state) {
+      state.incorrectTrigger = !state.incorrectTrigger
+    },
+    triggerPlayCorrect (state) {
+      state.correctTrigger = !state.correctTrigger
     }
   },
   actions: {
@@ -66,5 +81,8 @@ export default new Vuex.Store({
     setPlacedWords ({commit}, payload) {commit('setPlacedWords', payload)},
     setCrosswordComplete ({commit}) {commit('setCrosswordComplete')},
     setGameContainerDimensions ({commit}, payload) {commit('setGameContainerDimensions', payload)},
+    triggerPlayBubbles ({commit}) {commit('triggerPlayBubbles')},
+    triggerPlayCorrect ({commit}) {commit('triggerPlayCorrect')},
+    triggerPlayIncorrect ({commit}) {commit('triggerPlayIncorrect')}
   }
 })
