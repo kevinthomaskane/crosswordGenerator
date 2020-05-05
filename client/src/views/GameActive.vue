@@ -1,27 +1,29 @@
 <template>
   <div class="game-active-view-wrapper" v-if="currentCrosswordIndex > -1">
     <menu-bar />
+
     <progress-bar />
+
     <crossword
       :letterCombo="crosswords[currentCrosswordIndex]"
     />
 
     <crossword-complete v-if="isCrosswordComplete" />
 
-    <div v-if="isLevelComplete" class="level-complete">
-      complete
-    </div>
+    <level-complete v-if="isLevelComplete" />
 
-    <div class="status-letters-picker-wrapper">
+    <div class="status-letters-picker-wrapper" v-if="!isCrosswordComplete && !isLevelComplete">
       <status-box
         :status="status"
       />
+
       <active-letters
         :letters="activeLetters"
         @update:deleteLetter="handleDeleteLetter"
         @submit:word="handleSubmitWord"
         :status="status"
       />
+
       <letter-picker
         :letters="crosswords[currentCrosswordIndex].letters"
         @update:selectedLetters="handleNewLetterSelection"
@@ -40,6 +42,7 @@ import ActiveLetters from './../components/ActiveLetters'
 import StatusBox from './../components/StatusBox'
 import MenuBar from './../components/MenuBar'
 import CrosswordComplete from './../components/CrosswordComplete'
+import LevelComplete from './../components/LevelComplete'
 import ProgressBar from './../components/ProgressBar'
 
 /**
@@ -54,7 +57,8 @@ export default {
     'status-box': StatusBox,
     'menu-bar': MenuBar,
     'crossword-complete': CrosswordComplete,
-    'progress-bar': ProgressBar
+    'progress-bar': ProgressBar,
+    'level-complete': LevelComplete,
   },
   data: () => ({
     activeLetters: [],
@@ -70,6 +74,7 @@ export default {
     import(`./../letter-combos/combos-${this.difficulty === 'random' ? 'all' : this.difficulty}`)
       .then(({ combos }) => {
         this.$store.dispatch('setCrosswords', combos)
+        /* this.$store.dispatch('setCrosswords', combos.slice(0, 2)) */
         this.$store.dispatch('setCurrentCrosswordIndex', 0)
         this.maxWordLength = this.crosswords[this.currentCrosswordIndex].placedWords[0].length
       })

@@ -17,7 +17,8 @@ export default new Vuex.Store({
     isCrosswordComplete: false, /* has user guessed the last word in the crossword */
     bubbleTrigger: false, /* any change causes bubbles mp3 to play */
     correctTrigger: false, /* any change causes correct mp3 to play */
-    incorrectTrigger: false /* any change causes incorrect mp3 to play */
+    incorrectTrigger: false, /* any change causes incorrect mp3 to play */
+    themeTrigger: 'unset', /* volume on/off for theme mp3 */
   },
   getters: {
     currentView: state => state.currentView,
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     bubbleTrigger: state => state.bubbleTrigger,
     correctTrigger: state => state.correctTrigger,
     incorrectTrigger: state => state.incorrectTrigger,
+    themeTrigger: state => state.themeTrigger,
   },
   mutations: {
     setCurrentView (state, view) {
@@ -70,6 +72,14 @@ export default new Vuex.Store({
     },
     triggerPlayCorrect (state) {
       state.correctTrigger = !state.correctTrigger
+    },
+    triggerPlayTheme (state) {
+      if (state.themeTrigger === 'unset') {
+        state.themeTrigger = true
+        return
+      }
+
+      state.themeTrigger = !state.themeTrigger
     }
   },
   actions: {
@@ -83,6 +93,7 @@ export default new Vuex.Store({
     setGameContainerDimensions ({commit}, payload) {commit('setGameContainerDimensions', payload)},
     triggerPlayBubbles ({commit}) {commit('triggerPlayBubbles')},
     triggerPlayCorrect ({commit}) {commit('triggerPlayCorrect')},
-    triggerPlayIncorrect ({commit}) {commit('triggerPlayIncorrect')}
+    triggerPlayIncorrect ({commit}) {commit('triggerPlayIncorrect')},
+    triggerPlayTheme ({commit}) {commit('triggerPlayTheme')}
   }
 })

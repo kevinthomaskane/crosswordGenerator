@@ -22,6 +22,7 @@
 
 <script>
 /* eslint-disable */
+import { mapGetters } from 'vuex'
 /**
  * First view for game that allows user to select 'Demo' or 'Start'
  */
@@ -36,6 +37,11 @@ export default {
      * @param {string} view - the next view to display
      */
     handleOptionClick (view) {
+      // upon load, this will be 'unset', only trigger the theme once
+      if (this.themeTrigger === 'unset') {
+        this.$store.dispatch('triggerPlayTheme')
+      }
+
       this.$store.dispatch('triggerPlayBubbles')
 
       if (view === 'demo') {
@@ -53,7 +59,13 @@ export default {
     handleOptionHighlight (option='') {
       this.activeOption = option
     }
+  },
+  computed: {
+    ...mapGetters([
+      'themeTrigger'
+    ])
   }
+
 }
 </script>
 

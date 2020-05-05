@@ -20,30 +20,6 @@ export default {
   components: {
     'octopus-icon': OctopusIcon
   },
-  data: () => ({
-  }),
-  methods: {
-    /**
-     * Handles user selection and dispatches next view to store
-     * @param {string} view - the next view to display
-     */
-    handleOptionClick (view) {
-      if (view === 'demo') {
-        this.$store.dispatch('setCurrentView', 'demo')
-        return
-      }
-
-      this.$store.dispatch('setCurrentView', 'difficultySelect')
-    },
-
-    /**
-     * Handles highlighting of options buttons
-     * @param {string} option - the option to highlight, empty string indicates that 'Start' option should be highlighted
-     */
-    handleOptionHighlight (option='') {
-      this.activeOption = option
-    }
-  }
 }
 </script>
 

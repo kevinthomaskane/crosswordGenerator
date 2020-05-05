@@ -15,6 +15,12 @@
     </div>
     <div class="options-wrapper">
       <div
+        class="button volume"
+        @click="handleOptionClick('volume')"
+      >
+        <volume-icon />
+      </div>
+      <div
         class="button home"
         @click="handleOptionClick('home')"
       >
@@ -39,11 +45,13 @@
 
 import { mapGetters } from 'vuex'
 import SettingsIcon from './../icons/SettingsIcon'
+import VolumeIcon from './../icons/VolumeIcon'
 
 export default {
   name: 'MenuBar',
   components: {
-    'settings-icon': SettingsIcon
+    'settings-icon': SettingsIcon,
+    'volume-icon': VolumeIcon
   },
   data: () => ({
     showOptions: false
@@ -58,6 +66,8 @@ export default {
       
       if (option === 'home') {
         this.$store.dispatch('setCurrentView', 'welcome')
+      } else if (option === 'volume') {
+        this.$store.dispatch('triggerPlayTheme')
       } else if (option === 'difficulty') {
         this.$store.dispatch('setCurrentView', 'difficultySelect')
       } else if (this.currentCrosswordIndex < this.numCrosswords - 1) {
@@ -149,6 +159,9 @@ export default {
       }
       &:nth-child(3) {
         transition-delay: .2s;
+      }
+      &:nth-child(4) {
+        transition-delay: .3s;
       }
     }
   }

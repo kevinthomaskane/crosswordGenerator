@@ -2,11 +2,17 @@
   <div ref="game-container" class="game-container">
     <!-- sounds -->
     <bubbles />
-    <correct />
-    <incorrect />
+    <theme />
+    <correct
+      v-if="currentView === 'gameActive'"
+    />
+    <incorrect
+      v-if="currentView === 'gameActive'"
+    />
     <!--  -->
 
     <img class="background-image" alt="background" src="./../public/background.png"/>
+
     <welcome
       v-if="currentView === 'welcome'"
     />
@@ -29,6 +35,7 @@ import GameActive from './views/GameActive'
 import Bubbles from './audio-components/Bubbles'
 import Correct from './audio-components/Correct'
 import Incorrect from './audio-components/Incorrect'
+import Theme from './audio-components/Theme'
 
 /**
  * Most-parent component that displays views based on user progress through game
@@ -43,6 +50,7 @@ export default {
     'bubbles': Bubbles,
     'correct': Correct,
     'incorrect': Incorrect,
+    'theme': Theme,
   },
   data: () => ({
     paddingTop: 32,
