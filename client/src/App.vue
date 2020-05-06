@@ -16,6 +16,9 @@
     <welcome
       v-if="currentView === 'welcome'"
     />
+
+    <demo v-if="currentView === 'demo'" />
+
     <difficulty-select
       v-if="currentView === 'difficultySelect'"
     />
@@ -30,6 +33,7 @@
 import { mapGetters } from 'vuex'
 import Crossword from './components/Crossword'
 import Welcome from './views/Welcome'
+import Demo from './views/Demo'
 import DifficultySelect from './views/DifficultySelect'
 import GameActive from './views/GameActive'
 import Bubbles from './audio-components/Bubbles'
@@ -45,6 +49,7 @@ export default {
   components: {
     'crossword': Crossword,
     'welcome': Welcome,
+    'demo': Demo,
     'difficulty-select': DifficultySelect,
     'game-active': GameActive,
     'bubbles': Bubbles,
