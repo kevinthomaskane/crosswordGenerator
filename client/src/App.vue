@@ -40,6 +40,7 @@ import Bubbles from './audio-components/Bubbles'
 import Correct from './audio-components/Correct'
 import Incorrect from './audio-components/Incorrect'
 import Theme from './audio-components/Theme'
+import { WINDOW_WIDTH } from './constants'
 
 /**
  * Most-parent component that displays views based on user progress through game
@@ -55,10 +56,10 @@ export default {
     'bubbles': Bubbles,
     'correct': Correct,
     'incorrect': Incorrect,
-    'theme': Theme,
+    'theme': Theme
   },
   data: () => ({
-    paddingTop: 32,
+    paddingTop: WINDOW_WIDTH <= 640 ? 64 : 32,
     paddingBottom: 32
   }),
   mounted () {
@@ -86,14 +87,21 @@ export default {
 </script>
 
 <style lang="scss">
+@import './variables.scss';
+@import './mediaQueries.scss';
+
+body {margin: 0}
 .game-container {
   position: relative;
   box-sizing: border-box;
   /* inherent dimensions of background image are 2081 x 1611 */
-  height: 90vh;
-  width: calc(90vh * (2081 / 1611));
+  height: 100vh;
+  width: calc(100vh * (2081 / 1611));
   margin: 0 auto;
   overflow: hidden;
+  @include breakpoint-game-container-width {
+    width: 100%;
+  }
   * {
     box-sizing: border-box;
   }
@@ -103,6 +111,11 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+    @include breakpoint-game-container-width {
+      width: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }
 </style>

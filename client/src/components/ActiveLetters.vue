@@ -16,7 +16,7 @@
       v-if="letters.length > 0"
       @click="handleDeleteLetter"
     >
-      <img alt="backspace" src="./../../public/backspace.svg"/>
+      <backspace-icon class="backspace" />
     </div>
     <div
       class="submit-button"
@@ -29,11 +29,15 @@
 </template>
 <script>
 
+import Backspace from './../icon-components/Backspace'
 /**
  * Letters selected by user for a match attempt
  */
 export default {
   name: 'ActiveLetters',
+  components: {
+    'backspace-icon': Backspace
+  },
   props: {
     letters: {
       type: Array,
@@ -65,6 +69,7 @@ export default {
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 @keyframes shake {
   0% {
@@ -88,6 +93,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: .5rem;
   &.errorAnimation {
     animation: shake .15s linear;
   }
@@ -104,6 +110,11 @@ export default {
     background: $color-transparent-white;
     border-radius: 4px;
     font-size: 2rem;
+    @include breakpoint-mobile {
+      width: 2rem;
+      height: 2rem;
+      font-size: 1.5rem;
+    }
   }
   .delete-button {
     display: flex;
@@ -116,8 +127,15 @@ export default {
     border-radius: 4px;
     transition: background .2s ease-in-out;
     cursor: pointer;
-    img {
+    @include breakpoint-mobile {
+      width: 2.5rem;
       height: 2rem;
+    }
+    .backspace {
+      height: 2rem;
+      @include breakpoint-mobile {
+        height: 1.25rem;
+      }
     }
   }
   .submit-button {
@@ -136,6 +154,10 @@ export default {
     &:hover {
       background: $color-lightgreen;
       color: white;
+    }
+    @include breakpoint-mobile {
+      height: 2rem;
+      font-size: 1.25rem;
     }
   }
 }

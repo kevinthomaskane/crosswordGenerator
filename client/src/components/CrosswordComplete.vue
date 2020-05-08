@@ -11,20 +11,19 @@
 
 <script>
 /* eslint-disable */
-import OctopusIcon from './../icons/OctopusIcon'
-/**
- * First view for game that allows user to select 'Demo' or 'Start'
- */
+import Octopus from './../icon-components/Octopus'
+
 export default {
   name: 'CrosswordComplete',
   components: {
-    'octopus-icon': OctopusIcon
+    'octopus-icon': Octopus
   },
 }
 </script>
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 .crossword-complete-wrapper {
   position: absolute;
@@ -38,6 +37,9 @@ export default {
   overflow: hidden;
   border: solid 5px white;
   box-shadow: $modal-box-shadow; 
+  @include breakpoint-mobile {
+    width: calc(100% - 2rem);
+  }
   .inner-wrapper {
     position: relative;
     width: 100%;
@@ -54,6 +56,9 @@ export default {
       text-align: center;
       z-index: 2;
       color: white;
+      @include breakpoint-mobile {
+        font-size: 1.5rem;
+      }
     }
     .octopus {
       height: 225px;

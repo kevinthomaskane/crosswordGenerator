@@ -44,14 +44,14 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import SettingsIcon from './../icons/SettingsIcon'
-import VolumeIcon from './../icons/VolumeIcon'
+import Settings from './../icon-components/Settings'
+import Volume from './../icon-components/Volume'
 
 export default {
   name: 'MenuBar',
   components: {
-    'settings-icon': SettingsIcon,
-    'volume-icon': VolumeIcon
+    'settings-icon': Settings,
+    'volume-icon': Volume
   },
   data: () => ({
     showOptions: false
@@ -112,7 +112,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import './../variables.scss';
+@import './../variables';
+@import './../mediaQueries';
 
 .menu-bar-wrapper {
   position: absolute;
@@ -122,6 +123,10 @@ export default {
   flex-direction: column;
   z-index: 1;
   align-items: flex-start;
+  @include breakpoint-mobile {
+    top: .5rem;
+    left: .5rem;
+  }
   &.show-options {
     z-index: 2;
     .options-wrapper {
@@ -142,6 +147,13 @@ export default {
     cursor: pointer;
     &:hover {
       background: darken($color-transparent-white, 5%);
+      @include breakpoint-mobile {
+        background: white;
+      }
+    }
+    @include breakpoint-mobile {
+      background: white;
+      box-shadow: 0 5px 10px rgba(0,0,0,.4);
     }
     &:last-child {
       margin-bottom: 0;

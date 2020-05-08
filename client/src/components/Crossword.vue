@@ -1,5 +1,5 @@
 <template>
-  <div class="crossword-wrapper" ref="crossword-wrapper">
+  <div class="crossword-wrapper">
     <div
       v-if="crosswords"
       class="crossword-container"
@@ -38,6 +38,7 @@
 /* eslint-disable */
 
 import { mapGetters } from 'vuex'
+import { WINDOW_WIDTH } from './../constants'
 /**
  * Displays the puzzle for the current letter-combo
  */
@@ -47,7 +48,7 @@ export default {
     squareWidth: 32,
     squareHeight: 32,
     animationDelayIncrement: .2,
-    crosswordWidthOfContainer: .5,
+    crosswordWidthOfContainer: WINDOW_WIDTH <= 640 ? .8 : .5,
     crosswordHeightOfContainer: .6
   }),
   
@@ -165,7 +166,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import './../variables.scss';
+@import './../variables';
+@import './../mediaQueries';
 
 @keyframes expand {
   0% {
@@ -201,6 +203,9 @@ export default {
   margin: 0 auto;
   margin-bottom: 2rem;
   position: relative;
+  @include breakpoint-mobile {
+    width: 80%;
+  }
   .crossword-container {
     position: absolute;
     top: 50%;

@@ -23,7 +23,7 @@
           class="delete-button"
           v-if="selected.length > 0"
         >
-          <img alt="backspace" src="./../../public/backspace.svg"/>
+          <backspace class="backspace" />
         </div>
         <div
           :class="['submit-button', {'select': selected.length === letters.length}]"
@@ -56,13 +56,16 @@
 </template>
 
 <script>
-/* eslint-disable */
 
+import Backspace from './../icons/Backspace'
 /**
  * Displays demo view
  */
 export default {
   name: 'Demo',
+  components: {
+    'backspace': Backspace
+  },
   data: () => ({
     letters: ['d', 'e', 'm', 'o'],
     letterOptions: ['e', 'n', 'o', 'd', 'm'],
@@ -73,16 +76,22 @@ export default {
     animationPauseAtEnd: 1000,
     totalAnimationTime: -1,
   }),
+  /**
+   * Determine total time for demo loop, then initialize the demo after 1.5s and set it to an interval
+   */
   mounted() {
     this.totalAnimationTime = this.letters.length * this.letterAnimationTime + this.submitAnimationTime + this.animationPauseAtEnd
 
     setTimeout(() => {
-      this.selectLetters()
-      setInterval(this.selectLetters, this.totalAnimationTime + 100)
+      this.initDemo()
+      setInterval(this.initDemo, this.totalAnimationTime + 100)
     }, 1500)
   },
   methods: {
-    selectLetters () {
+    /**
+     * Create timeouts for each letter to be added to this.selected. Create submit button timeout. Create clear timeout
+     */
+    initDemo () {
       let delay = 0
 
       const _addTimeout = this.addTimeout.bind(this)
@@ -92,21 +101,36 @@ export default {
         delay += this.letterAnimationTime
       })
 
+      // this will trigger the word to appear in the puzzle spaces
       setTimeout(() => {
         this.demoSubmitted = true
       }, this.totalAnimationTime - this.animationPauseAtEnd - this.submitAnimationTime)
 
       setTimeout(() => this.clear(), this.totalAnimationTime)
     },
+
+    /**
+     * Adds letters to this.selected based on appropriate delay
+     * @param {string} letter - the letter to add to the selected array
+     * @param {number} delay - the ms delay for the letters placement
+     */
     addTimeout (letter, delay) {
       setTimeout(() => {
         this.selected = [...this.selected, letter]
       }, delay)
     },
+
+    /**
+     * Clears the selected letters and resets demo status for next round
+     */
     clear () {
       this.selected = []
       this.demoSubmitted = false
     },
+
+    /**
+     * Sets next view
+     */
     handleOption () {
       this.$store.dispatch('setCurrentView', 'difficultySelect')
     }
@@ -116,6 +140,7 @@ export default {
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 @keyframes select {
   10% {
@@ -160,6 +185,10 @@ export default {
   padding-bottom: 10rem; /* make room for footer */
   box-shadow: $modal-box-shadow;
   overflow: hidden;
+  @include breakpoint-mobile {
+    width: calc(100% - 2rem);
+    padding: 1rem 1rem 10rem 1rem;
+  }
   .overview {
     margin-top: 0;
     font-family: $font-family-headings;
@@ -223,7 +252,7 @@ export default {
         border-radius: 4px;
         transition: background .2s ease-in-out;
         cursor: pointer;
-        img {
+        .backspace {
           height: 1rem;
         }
       }
@@ -293,6 +322,9 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
+    @include breakpoint-mobile {
+      padding: 2rem 1rem;
+    }
     .option {
       display: inline-flex;
       padding: 1rem 3.5rem;
@@ -305,6 +337,11 @@ export default {
       text-align: center;
       &:hover {
         background: darken(white, 15%)
+      }
+      @include breakpoint-mobile {
+        padding: 1rem;
+        width: 100%;
+        display: block;
       }
     }
   }

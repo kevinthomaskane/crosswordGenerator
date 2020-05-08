@@ -9,7 +9,7 @@
         @mouseup="handleMouseUp"
         @click="handleClick(letter)"
       >
-        {{ letter }}
+        <span>{{ letter }}</span>
       </div>
     </div>
   </div>
@@ -59,12 +59,9 @@ export default {
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 .letter-picker-wrapper {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 1;
   display: flex;
   justify-content: center;
@@ -77,32 +74,44 @@ export default {
     border-radius: 33px;
     margin: 0 auto;
     display: inline-flex;
+    width: calc(100% - 2rem);
+    max-width: 500px;
+    justify-content: space-between;
   }
   .letter {
     display: flex;
-    width: 4rem;
-    height: 4rem;
+    width: calc((100% - 7rem)/6);
+    padding-bottom: calc((100% - 7rem)/6);
     border-radius: 50%;
     background: $color-darkblue;
-    line-height: 4rem;
     justify-content: center;
     align-items: center;
-    margin-right: 1rem;
-    font-size: 2rem;
     font-family: $font-family-default;
     color: white;
     text-shadow: 0 1px 1px black;
     box-shadow: 0 2px 4px black;
     transition: all .2s ease-in-out;
     cursor: pointer;
+    position: relative;
+    @include breakpoint-mobile {
+      width: calc((100% - 3.5rem)/6);
+      padding-bottom: calc((100% - 3.5rem)/6);
+    }
     &:hover {
       background: lighten($color-darkblue, 5%);
     }
-    &:last-child {
-      margin-right: 0;
-    }
     &.active {
       box-shadow: none;
+    }
+    span {
+      font-size: 2rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      @include breakpoint-mobile {
+        font-size: 1.5rem;
+      }
     }
   }
 }

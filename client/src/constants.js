@@ -17,3 +17,5 @@ export const STATUSES = {
     isError: true
   }
 }
+
+export const WINDOW_WIDTH = document.documentElement.clientWidth || document.body.clientWidth

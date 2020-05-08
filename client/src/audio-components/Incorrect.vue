@@ -1,6 +1,6 @@
 <template>
   <audio ref="incorrect">
-    <source src="./../../public/incorrect.mp3" type="audio/mp3">
+    <source src="./../../public/audio/incorrect.mp3" type="audio/mp3">
     Your browser does not support the
     <code>audio</code> element.
   </audio>

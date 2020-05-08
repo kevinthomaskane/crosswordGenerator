@@ -74,7 +74,6 @@ export default {
     import(`./../letter-combos/combos-${this.difficulty === 'random' ? 'all' : this.difficulty}`)
       .then(({ combos }) => {
         this.$store.dispatch('setCrosswords', combos)
-        /* this.$store.dispatch('setCrosswords', combos.slice(0, 2)) */
         this.$store.dispatch('setCurrentCrosswordIndex', 0)
         this.maxWordLength = this.crosswords[this.currentCrosswordIndex].placedWords[0].length
       })
@@ -156,7 +155,8 @@ export default {
     },
 
     /**
-     * When all words have been placed, show CrosswordComplete after each letter animation has completed, hence the setTimeout
+     * When all words have been placed, determine whether this is last puzzle in difficulty.  If so, set the level to complete, otherwise show CrosswordComplete after each letter animation has completed
+     * @param {words} array - array of placed words
      */
     placedWords (words) {
       if (words.length === this.crosswords[this.currentCrosswordIndex].placedWords.length) {
@@ -199,6 +199,7 @@ export default {
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 .game-active-view-wrapper {
   width: 100%;
@@ -206,10 +207,16 @@ export default {
   position: relative;
   z-index: 1;
   padding: 2rem 0;
+  @include breakpoint-mobile {
+    padding-top: 4rem;
+  }
   /* crossword is 60% height of container with a 2rem margin-bottom */
   .status-letters-picker-wrapper {
     height: calc(40% - 2rem);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 }
 </style>

@@ -1,0 +1,9 @@
+@mixin breakpoint-mobile {
+  @media (max-width: $breakpoint-mobile) { @content; }
+}
+@mixin breakpoint-tablet {
+  @media (max-width: $breakpoint-tablet) { @content; }
+}
+@mixin breakpoint-game-container-width {
+  @media (max-width: $breakpoint-game-container-width) { @content; }
+}

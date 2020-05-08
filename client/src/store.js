@@ -18,7 +18,7 @@ export default new Vuex.Store({
     bubbleTrigger: false, /* any change causes bubbles mp3 to play */
     correctTrigger: false, /* any change causes correct mp3 to play */
     incorrectTrigger: false, /* any change causes incorrect mp3 to play */
-    themeTrigger: 'unset', /* volume on/off for theme mp3 */
+    themeTrigger: 'unset', /* starts as 'unset', becomes boolean after user action. volume on/off for theme mp3 */
   },
   getters: {
     currentView: state => state.currentView,

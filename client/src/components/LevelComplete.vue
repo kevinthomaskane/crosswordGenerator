@@ -17,12 +17,12 @@
 
 <script>
 /* eslint-disable */
-import OctopusIcon from './../icons/OctopusIcon'
+import Octopus from './../icon-components/Octopus'
 
 export default {
   name: 'LevelComplete',
   components: {
-    'octopus-icon': OctopusIcon
+    'octopus-icon': Octopus
   },
   methods: {
     /**
@@ -37,6 +37,7 @@ export default {
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 .level-complete-wrapper {
   position: absolute;
@@ -50,6 +51,9 @@ export default {
   overflow: hidden;
   border: solid 5px white;
   box-shadow: $modal-box-shadow; 
+  @include breakpoint-mobile {
+    width: calc(100% - 2rem);
+  }
   .inner-wrapper {
     position: relative;
     width: 100%;
@@ -68,6 +72,9 @@ export default {
       z-index: 2;
       color: white;
       margin-bottom: 1rem;
+      @include breakpoint-mobile {
+        font-size: 1.5rem;
+      }
     }
     .option {
       padding: 1rem 1.5rem;

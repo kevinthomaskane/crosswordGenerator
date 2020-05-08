@@ -1,6 +1,6 @@
 <template>
   <audio ref="bubbles">
-    <source src="./../../public/bubbles-trimmed.mp3" type="audio/mp3">
+    <source src="./../../public/audio/bubbles-trimmed.mp3" type="audio/mp3">
     Your browser does not support the
     <code>audio</code> element.
   </audio>

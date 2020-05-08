@@ -53,6 +53,7 @@ export default {
 
 <style lang="scss">
 @import "./../variables";
+@import "./../mediaQueries";
 
 .difficulty-view-wrapper {
   position: absolute;
@@ -63,12 +64,19 @@ export default {
   border-radius: 10px;
   padding: 2rem;
   box-shadow: $modal-box-shadow;
+  @include breakpoint-mobile {
+    padding: 2rem 1rem;
+    width: calc(100% - 2rem);
+  }
   .difficulty-header {
     font-size: 2rem;
     font-family: $font-family-headings;
     margin: 0;
     margin-bottom: 1.5rem;
     text-align: center;
+    @include breakpoint-mobile {
+      font-size: 1.5rem;
+    }
   }
   .options-wrapper {
     .option {

@@ -24,12 +24,18 @@ export default {
 </script>
 
 <style lang="scss">
+@import './../variables.scss';
+@import './../mediaQueries.scss';
+
 .settings-icon {
   display: flex;
   svg {
     width: 1.5rem;
     transition: all .2s ease-in-out;
     cursor: pointer;
+    @include breakpoint-mobile {
+      width: 1rem;
+    }
     &.rotate {
       transform: rotate(360deg);
     }
