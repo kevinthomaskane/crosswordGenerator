@@ -70,17 +70,14 @@ export default {
       const containerWidth = this.gameContainerWidth * this.crosswordWidthOfContainer
       const containerHeight = this.gameContainerHeight * this.crosswordHeightOfContainer
 
-      // Which dimension is larger, i.e. the dimension that needs to get scaled
-      const widthDifference = widthOfCrossword - containerWidth
-      const heightDifference = heightOfCrossword - containerHeight
-
       let scale 
-      if (widthDifference > heightDifference) {
+      if (widthOfCrossword > heightOfCrossword) {
         scale = containerWidth / widthOfCrossword
         return `translate(-50%, -50%) scale(${scale})`
       }
 
       scale = containerHeight / heightOfCrossword
+
       return `translate(-50%, -50%) scale(${scale})`
     },
 

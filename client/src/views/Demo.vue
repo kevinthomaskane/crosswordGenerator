@@ -57,7 +57,7 @@
 
 <script>
 
-import Backspace from './../icons/Backspace'
+import Backspace from './../icon-components/Backspace'
 /**
  * Displays demo view
  */
